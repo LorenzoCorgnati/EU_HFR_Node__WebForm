@@ -3,7 +3,7 @@ PHP scripts for the data entry web form for managing HFR network information wit
 
 These application is written in PHP language and is based on a MySQL database where the information about HFR networks, stations and data inserted in the web form are stored. The application is designed for High Frequency Radar (HFR) data management according to the European HFR node processing workflow that generates radial and total velocity files in netCDF format according to the European standard data and metadata model for near real time HFR current data.
 
-The webform allows for_
+The webform allows for:
 - creating an account for managing HFR networks and related stations;
 - managing the accounts (e.g. changing password, requesting the access to other HFR networks, etc);
 - creating HFR network entries;
