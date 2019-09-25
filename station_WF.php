@@ -96,240 +96,480 @@ $num_fields_stations = mysql_num_fields($result_stations);
 			 // reindirizzamento alla homepage in caso di login mancato
 			 header("Location: index.php");
 		}		
+
+		// recupero delle informazioni inserite nel form
+		if($_GET['sfn'] != '')
+		{
+			$_SESSION['station_full_name'] = $_GET['sfn'];
+		}
+		if($_GET['sln'] != '')
+		{
+			$_SESSION['site_lon'] = $_GET['sln'];
+		}
+		if($_GET['slt'] != '')
+		{
+			$_SESSION['site_lat'] = $_GET['slt'];
+		}
+		if($_GET['opf'] != '')
+		{
+			$_SESSION['operational_from'] = $_GET['opf'];
+		}
+		if($_GET['opt'] != '')
+		{
+			$_SESSION['operational_to'] = $_GET['opt'];
+		}
+		if($_GET['EDM'] != '')
+		{
+			$_SESSION['EDMO_code'] = $_GET['EDM'];
+		}
+		if($_GET['sum'] != '')
+		{
+			$_SESSION['summary'] = $_GET['sum'];
+		}
+		if($_GET['Dem'] != '')
+		{
+			$_SESSION['DoA_estimation_method'] = $_GET['Dem'];
+		}
+		if($_GET['clt'] != '')
+		{
+			$_SESSION['calibration_type'] = $_GET['clt'];
+		}
+		if($_GET['cll'] != '')
+		{
+			$_SESSION['calibration_link'] = $_GET['cll'];
+		}
+		if($_GET['lcd'] != '')
+		{
+			$_SESSION['last_calibration_date'] = $_GET['lcd'];
+		}
+		if($_GET['inn'] != '')
+		{
+			$_SESSION['institution_name'] = $_GET['inn'];
+		}
+		if($_GET['inw'] != '')
+		{
+			$_SESSION['institution_website'] = $_GET['inw'];
+		}
+		if($_GET['mnf'] != '')
+		{
+			$_SESSION['manufacturer'] = $_GET['mnf'];
+		}
+		if($_GET['tcf'] != '')
+		{
+			$_SESSION['transmit_central_frequency'] = $_GET['tcf'];
+		}
+		if($_GET['trs'] != '')
+		{
+			$_SESSION['temporal_resolution'] = $_GET['trs'];
+		}
+		if($_GET['vel'] != '')
+		{
+			$_SESSION['radial_QC_velocity_threshold'] = $_GET['vel'];
+		}
+		if($_GET['var'] != '')
+		{
+			$_SESSION['radial_QC_variance_threshold'] = $_GET['var'];
+		}
+		if($_GET['tdr'] != '')
+		{
+			$_SESSION['radial_QC_temporal_derivative_threshold'] = $_GET['tdr'];
+		}
+		if($_GET['mfR'] != '')
+		{
+			$_SESSION['radial_QC_median_filter_RCLim'] = $_GET['mfR'];
+		}
+		if($_GET['mfA'] != '')
+		{
+			$_SESSION['radial_QC_median_filter_AngLim'] = $_GET['mfA'];
+		}
+		if($_GET['mfC'] != '')
+		{
+			$_SESSION['radial_QC_median_filter_CurLim'] = $_GET['mfC'];
+		}
+		if($_GET['rbn'] != '')
+		{
+			$_SESSION['radial_QC_average_radial_bearing_min'] = $_GET['rbn'];
+		}
+		if($_GET['rbx'] != '')
+		{
+			$_SESSION['radial_QC_average_radial_bearing_max'] = $_GET['rbx'];
+		}
+		if($_GET['rdc'] != '')
+		{
+			$_SESSION['radial_QC_radial_count_threshold'] = $_GET['rdc'];
+		}
+		if($_GET['nrc'] != '')
+		{
+			$_SESSION['number_of_range_cells'] = $_GET['nrc'];
+		}
+		if($_GET['rip'] != '')
+		{
+			$_SESSION['radial_input_folder_path'] = $_GET['rip'];
+		}
+		if($_GET['rhp'] != '')
+		{
+			$_SESSION['radial_HFRnetCDF_folder_path'] = $_GET['rhp'];
+		}
 		 
 		// valorizzazione delle variabili con i parametri dal form
 		if(isset($_POST['submit'])&&($_POST['submit']=="Save"))
 		{
-			if(isset($_POST['station_id']))
+			// archiviazione delle informazioni già inserite nella variabili di sessione			
+			if(isset($_POST['station_full_name']))
 			{
-		    	$station_id = addslashes(filter_var($_POST['station_id'], FILTER_SANITIZE_STRING));
-		  	}
-		  	if(isset($_POST['station_full_name']))
-		  	{
-		    	$station_full_name = addslashes(filter_var($_POST['station_full_name'], FILTER_SANITIZE_STRING));
-		  	}
-		  	if(isset($_POST['site_lon']))
-		  	{
-		    	$site_lon = addslashes(filter_var($_POST['site_lon'], FILTER_SANITIZE_STRING));
-		    }
+				$_SESSION['station_full_name'] = addslashes(filter_var($_POST['station_full_name'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['site_lon']))
+			{
+				$_SESSION['site_lon'] = addslashes(filter_var($_POST['site_lon'], FILTER_SANITIZE_STRING));
+			}
 			if(isset($_POST['site_lat']))
 			{
-		    	$site_lat = addslashes(filter_var($_POST['site_lat'], FILTER_SANITIZE_STRING));
-		  	}
-		  	if(isset($_POST['operational_from']))
+				$_SESSION['site_lat'] = addslashes(filter_var($_POST['site_lat'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['operational_from']))
 			{
-		    	$operational_from = addslashes(filter_var($_POST['operational_from'], FILTER_SANITIZE_STRING));
-		  	}
+				$_SESSION['operational_from'] = addslashes(filter_var($_POST['operational_from'], FILTER_SANITIZE_STRING));
+			}
 			if(isset($_POST['operational_to']))
 			{
-		    	$operational_to = addslashes(filter_var($_POST['operational_to'], FILTER_SANITIZE_STRING));
-		  	}
-		  	if(isset($_POST['manufacturer']))
-		  	{
-		    	$manufacturer = addslashes(filter_var($_POST['manufacturer'], FILTER_SANITIZE_STRING));
-		  	}
+				$_SESSION['operational_to'] = addslashes(filter_var($_POST['operational_to'], FILTER_SANITIZE_STRING));
+			}
 			if(isset($_POST['EDMO_code']))
-			  	{
-			    	$EDMO_code = addslashes(filter_var($_POST['EDMO_code'], FILTER_SANITIZE_STRING));
-			  	}
+			{
+				$_SESSION['EDMO_code'] = addslashes(filter_var($_POST['EDMO_code'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['summary']))
+			{
+				$_SESSION['summary'] = addslashes(filter_var($_POST['summary'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['DoA_estimation_method']))
+			{
+				$_SESSION['DoA_estimation_method'] = addslashes(filter_var($_POST['DoA_estimation_method'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['calibration_type']))
+			{
+				$_SESSION['calibration_type'] = addslashes(filter_var($_POST['calibration_type'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['calibration_link']))
+			{
+				$_SESSION['calibration_link'] = addslashes(filter_var($_POST['calibration_link'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['last_calibration_date']))
+			{
+				$_SESSION['last_calibration_date'] = addslashes(filter_var($_POST['last_calibration_date'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['institution_name']))
+			{
+				$_SESSION['institution_name'] = addslashes(filter_var($_POST['institution_name'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['institution_website']))
+			{
+				$_SESSION['institution_website'] = addslashes(filter_var($_POST['institution_website'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['manufacturer']))
+			{
+				$_SESSION['manufacturer'] = addslashes(filter_var($_POST['manufacturer'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['transmit_central_frequency']))
+			{
+				$_SESSION['transmit_central_frequency'] = addslashes(filter_var($_POST['transmit_central_frequency'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['temporal_resolution']))
+			{
+				$_SESSION['temporal_resolution'] = addslashes(filter_var($_POST['temporal_resolution'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['radial_QC_velocity_threshold']))
+			{
+				$_SESSION['radial_QC_velocity_threshold'] = addslashes(filter_var($_POST['radial_QC_velocity_threshold'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['radial_QC_variance_threshold']))
+			{
+				$_SESSION['radial_QC_variance_threshold'] = addslashes(filter_var($_POST['radial_QC_variance_threshold'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['radial_QC_temporal_derivative_threshold']))
+			{
+				$_SESSION['radial_QC_temporal_derivative_threshold'] = addslashes(filter_var($_POST['radial_QC_temporal_derivative_threshold'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['radial_QC_median_filter_RCLim']))
+			{
+				$_SESSION['radial_QC_median_filter_RCLim'] = addslashes(filter_var($_POST['radial_QC_median_filter_RCLim'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['radial_QC_median_filter_AngLim']))
+			{
+				$_SESSION['radial_QC_median_filter_AngLim'] = addslashes(filter_var($_POST['radial_QC_median_filter_AngLim'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['radial_QC_median_filter_CurLim']))
+			{
+				$_SESSION['radial_QC_median_filter_CurLim'] = addslashes(filter_var($_POST['radial_QC_median_filter_CurLim'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['radial_QC_average_radial_bearing_min']))
+			{
+				$_SESSION['radial_QC_average_radial_bearing_min'] = addslashes(filter_var($_POST['radial_QC_average_radial_bearing_min'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['radial_QC_average_radial_bearing_max']))
+			{
+				$_SESSION['radial_QC_average_radial_bearing_max'] = addslashes(filter_var($_POST['radial_QC_average_radial_bearing_max'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['radial_QC_radial_count_threshold']))
+			{
+				$_SESSION['radial_QC_radial_count_threshold'] = addslashes(filter_var($_POST['radial_QC_radial_count_threshold'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['number_of_range_cells']))
+			{
+				$_SESSION['number_of_range_cells'] = addslashes(filter_var($_POST['number_of_range_cells'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['radial_input_folder_path']))
+			{
+				$_SESSION['radial_input_folder_path'] = addslashes(filter_var($_POST['radial_input_folder_path'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['radial_HFRnetCDF_folder_path']))
+			{
+				$_SESSION['radial_HFRnetCDF_folder_path'] = addslashes(filter_var($_POST['radial_HFRnetCDF_folder_path'], FILTER_SANITIZE_STRING));
+			}
+
+		// String for recover session data
+			$recoverSession = "&err=1&sfn=" . $_SESSION['station_full_name'] . "&sln=" . $_SESSION['site_lon'] . "&slt=" . $_SESSION['site_lat'] . "&opf=" . $_SESSION['operational_from']
+												 . "&opt=" . $_SESSION['operational_to'] . "&EDM=" . $_SESSION['EDMO_code'] . "&sum=" . $_SESSION['summary'] . "&Dem=" . $_SESSION['DoA_estimation_method']
+												 . "&clt=" . $_SESSION['calibration_type']  . "&cll=" . $_SESSION['calibration_link'] . "&lcd=" . $_SESSION['last_calibration_date'] . "&inn=" . $_SESSION['institution_name']
+												 . "&inw=" . $_SESSION['institution_website'] . "&mnf=" . $_SESSION['manufacturer'] . "&tcf=" . $_SESSION['transmit_central_frequency']
+												 . "&trs=" . $_SESSION['temporal_resolution'] . "&vel=" . $_SESSION['radial_QC_velocity_threshold'] . "&var=" . $_SESSION['radial_QC_variance_threshold']
+												 . "&tdr=" . $_SESSION['radial_QC_temporal_derivative_threshold'] . "&mfR=" . $_SESSION['radial_QC_median_filterRCLim'] . "&mfA=" . $_SESSION['radial_QC_median_filterAngLim']
+												 . "&mfC=" . $_SESSION['radial_QC_median_filterCurLim'] . "&rbn=" . $_SESSION['radial_QC_average_radial_bearing_min']
+												 . "&rbx=" . $_SESSION['radial_QC_average_radial_bearing_max'] . "&rdc=" . $_SESSION['radial_QC_raial_count_threshold'] . "&nrc=" . $_SESSION['number_of_range_cells']
+												 . "&rip=" . $_SESSION['radial_input_folder_path']. "&rhp=" . $_SESSION['radial_HFRnetCDF_folder_path'];
+
+			// check esistenza e valorizzazione delle variabili con i parametri dal form
+			if(isset($_POST['station_id']))
+			{
+		   	$station_id = addslashes(filter_var($_POST['station_id'], FILTER_SANITIZE_STRING));
+		  }
+		  if(isset($_POST['station_full_name']))
+		  {
+		   	$station_full_name = addslashes(filter_var($_POST['station_full_name'], FILTER_SANITIZE_STRING));
+		  }
+		  if(isset($_POST['site_lon']))
+		  {
+		   	$site_lon = addslashes(filter_var($_POST['site_lon'], FILTER_SANITIZE_STRING));
+		   }
+			if(isset($_POST['site_lat']))
+			{
+		   	$site_lat = addslashes(filter_var($_POST['site_lat'], FILTER_SANITIZE_STRING));
+		  }
+		  if(isset($_POST['operational_from']))
+			{
+		   	$operational_from = addslashes(filter_var($_POST['operational_from'], FILTER_SANITIZE_STRING));
+		  }
+			if(isset($_POST['operational_to']))
+			{
+		   	$operational_to = addslashes(filter_var($_POST['operational_to'], FILTER_SANITIZE_STRING));
+		  }
+		  if(isset($_POST['manufacturer']))
+		  {
+		   	$manufacturer = addslashes(filter_var($_POST['manufacturer'], FILTER_SANITIZE_STRING));
+		  }
+			if(isset($_POST['EDMO_code']))
+			{
+			 	$EDMO_code = addslashes(filter_var($_POST['EDMO_code'], FILTER_SANITIZE_STRING));
+			}
 			if($EDMO_code!=0){
-					if(isset($_POST['summary']))
+				if(isset($_POST['summary']))
+				{
+					$summary = addslashes(filter_var($_POST['summary'], FILTER_SANITIZE_STRING));
+				}
+				if($summary!=''){
+					if(isset($_POST['DoA_estimation_method']))
 					{
-						$summary = addslashes(filter_var($_POST['summary'], FILTER_SANITIZE_STRING));
+						$DoA_estimation_method = addslashes(filter_var($_POST['DoA_estimation_method'], FILTER_SANITIZE_STRING));
 					}
-					if($summary!=''){
-						if(isset($_POST['DoA_estimation_method']))
+					if($DoA_estimation_method!=''){
+						if(isset($_POST['calibration_type']))
 						{
-							$DoA_estimation_method = addslashes(filter_var($_POST['DoA_estimation_method'], FILTER_SANITIZE_STRING));
+							$calibration_type = addslashes(filter_var($_POST['calibration_type'], FILTER_SANITIZE_STRING));
 						}
-						if($DoA_estimation_method!=''){
-							if(isset($_POST['calibration_type']))
+						if($calibration_type!='')
+						{
+							if(isset($_POST['calibration_link']))
 							{
-								$calibration_type = addslashes(filter_var($_POST['calibration_type'], FILTER_SANITIZE_STRING));
-							}
-							if($calibration_type!='')
+								$calibration_link = addslashes(filter_var($_POST['calibration_link'], FILTER_SANITIZE_STRING));
+							}	
+							if($calibration_link!='')
 							{
-								if(isset($_POST['calibration_link']))
+								if(isset($_POST['last_calibration_date']))
 								{
-									$calibration_link = addslashes(filter_var($_POST['calibration_link'], FILTER_SANITIZE_STRING));
-								}	
-								if($calibration_link!='')
+									$last_calibration_date = addslashes(filter_var($_POST['last_calibration_date'], FILTER_SANITIZE_STRING));
+								}
+								if(isset($_POST['institution_name']))
 								{
-									if(isset($_POST['last_calibration_date']))
+									$institution_name = addslashes(filter_var($_POST['institution_name'], FILTER_SANITIZE_STRING));
+								}
+								if($institution_name!='')
+								{
+									if(isset($_POST['institution_website']))
 									{
-										$last_calibration_date = addslashes(filter_var($_POST['last_calibration_date'], FILTER_SANITIZE_STRING));
+										$institution_website = addslashes(filter_var($_POST['institution_website'], FILTER_SANITIZE_STRING));
 									}
-									if(isset($_POST['institution_name']))
-									{
-										$institution_name = addslashes(filter_var($_POST['institution_name'], FILTER_SANITIZE_STRING));
-									}
-									if($institution_name!='')
-									{
-										if(isset($_POST['institution_website']))
+									if($institution_website!=''){
+										if(isset($_POST['transmit_central_frequency']))
 										{
-											$institution_website = addslashes(filter_var($_POST['institution_website'], FILTER_SANITIZE_STRING));
+									  	$transmit_central_frequency = addslashes(filter_var($_POST['transmit_central_frequency'], FILTER_SANITIZE_STRING));
+										}	
+										if(isset($_POST['temporal_resolution']))
+										{
+											$temporal_resolution = addslashes(filter_var($_POST['temporal_resolution'], FILTER_SANITIZE_STRING));
 										}
-										if($institution_website!=''){
-											if(isset($_POST['transmit_central_frequency']))
+										if($temporal_resolution!=0){
+											if(isset($_POST['radial_QC_velocity_threshold']))
 											{
-											  	$transmit_central_frequency = addslashes(filter_var($_POST['transmit_central_frequency'], FILTER_SANITIZE_STRING));
-												}	
-											if(isset($_POST['temporal_resolution']))
+										  	$radial_QC_velocity_threshold = addslashes(filter_var($_POST['radial_QC_velocity_threshold'], FILTER_SANITIZE_STRING));
+											}			
+											if(isset($_POST['radial_QC_variance_threshold']))
 											{
-												$temporal_resolution = addslashes(filter_var($_POST['temporal_resolution'], FILTER_SANITIZE_STRING));
+										  	$radial_QC_variance_threshold = addslashes(filter_var($_POST['radial_QC_variance_threshold'], FILTER_SANITIZE_STRING));
+											}			
+											if(isset($_POST['radial_QC_temporal_derivative_threshold']))
+											{
+										  	$radial_QC_temporal_derivative_threshold = addslashes(filter_var($_POST['radial_QC_temporal_derivative_threshold'], FILTER_SANITIZE_STRING));
 											}
-											if($temporal_resolution!=0){
-												if(isset($_POST['radial_QC_velocity_threshold']))
-												{
-												  	$radial_QC_velocity_threshold = addslashes(filter_var($_POST['radial_QC_velocity_threshold'], FILTER_SANITIZE_STRING));
-													}			
-												if(isset($_POST['radial_QC_variance_threshold']))
-												{
-												  	$radial_QC_variance_threshold = addslashes(filter_var($_POST['radial_QC_variance_threshold'], FILTER_SANITIZE_STRING));
-													}			
-												if(isset($_POST['radial_QC_temporal_derivative_threshold']))
-												{
-												  	$radial_QC_temporal_derivative_threshold = addslashes(filter_var($_POST['radial_QC_temporal_derivative_threshold'], FILTER_SANITIZE_STRING));
-													}
-												if(isset($_POST['radial_QC_median_filter_RCLim']))
-												{
-												  	$radial_QC_median_filter_RCLim = addslashes(filter_var($_POST['radial_QC_median_filter_RCLim'], FILTER_SANITIZE_STRING));
-													}
-												if(isset($_POST['radial_QC_median_filter_AngLim']))
-												{
-												  	$radial_QC_median_filter_AngLim = addslashes(filter_var($_POST['radial_QC_median_filter_AngLim'], FILTER_SANITIZE_STRING));
-													}
-												if(isset($_POST['radial_QC_median_filter_CurLim']))
-												{
-												  	$radial_QC_median_filter_CurLim = addslashes(filter_var($_POST['radial_QC_median_filter_CurLim'], FILTER_SANITIZE_STRING));
-													}			
-												if(isset($_POST['radial_QC_average_radial_bearing_min']))
-												{
-												  	$radial_QC_average_radial_bearing_min = addslashes(filter_var($_POST['radial_QC_average_radial_bearing_min'], FILTER_SANITIZE_STRING));
-													}
-												if(isset($_POST['radial_QC_average_radial_bearing_max']))
-												{
-												  	$radial_QC_average_radial_bearing_max = addslashes(filter_var($_POST['radial_QC_average_radial_bearing_max'], FILTER_SANITIZE_STRING));
-													}
-												if(isset($_POST['radial_QC_radial_count_threshold']))
-												{
-												  	$radial_QC_radial_count_threshold = addslashes(filter_var($_POST['radial_QC_radial_count_threshold'], FILTER_SANITIZE_STRING));
-													}						
-												if(isset($_POST['number_of_range_cells']))
-												{
-												  	$number_of_range_cells = addslashes(filter_var($_POST['number_of_range_cells'], FILTER_SANITIZE_STRING));
-													}			
-												if(isset($_POST['radial_input_folder_path']))
-												{
-												  	$radial_input_folder_path = addslashes(filter_var($_POST['radial_input_folder_path'], FILTER_SANITIZE_STRING));
-													}
-												if(isset($_POST['radial_HFRnetCDF_folder_path']))
-												{
-												  	$radial_HFRnetCDF_folder_path = addslashes(filter_var($_POST['radial_HFRnetCDF_folder_path'], FILTER_SANITIZE_STRING));
-													}
+											if(isset($_POST['radial_QC_median_filter_RCLim']))
+											{
+										  	$radial_QC_median_filter_RCLim = addslashes(filter_var($_POST['radial_QC_median_filter_RCLim'], FILTER_SANITIZE_STRING));
+											}
+											if(isset($_POST['radial_QC_median_filter_AngLim']))
+											{
+										  	$radial_QC_median_filter_AngLim = addslashes(filter_var($_POST['radial_QC_median_filter_AngLim'], FILTER_SANITIZE_STRING));
+											}
+											if(isset($_POST['radial_QC_median_filter_CurLim']))
+											{
+										  	$radial_QC_median_filter_CurLim = addslashes(filter_var($_POST['radial_QC_median_filter_CurLim'], FILTER_SANITIZE_STRING));
+											}			
+											if(isset($_POST['radial_QC_average_radial_bearing_min']))
+											{
+										  	$radial_QC_average_radial_bearing_min = addslashes(filter_var($_POST['radial_QC_average_radial_bearing_min'], FILTER_SANITIZE_STRING));
+											}
+											if(isset($_POST['radial_QC_average_radial_bearing_max']))
+											{
+										  	$radial_QC_average_radial_bearing_max = addslashes(filter_var($_POST['radial_QC_average_radial_bearing_max'], FILTER_SANITIZE_STRING));
+											}
+											if(isset($_POST['radial_QC_radial_count_threshold']))
+											{
+										  	$radial_QC_radial_count_threshold = addslashes(filter_var($_POST['radial_QC_radial_count_threshold'], FILTER_SANITIZE_STRING));
+											}						
+											if(isset($_POST['number_of_range_cells']))
+											{
+										  	$number_of_range_cells = addslashes(filter_var($_POST['number_of_range_cells'], FILTER_SANITIZE_STRING));
+											}			
+											if(isset($_POST['radial_input_folder_path']))
+											{
+										  	$radial_input_folder_path = addslashes(filter_var($_POST['radial_input_folder_path'], FILTER_SANITIZE_STRING));
+											}
+											if(isset($_POST['radial_HFRnetCDF_folder_path']))
+											{
+										  	$radial_HFRnetCDF_folder_path = addslashes(filter_var($_POST['radial_HFRnetCDF_folder_path'], FILTER_SANITIZE_STRING));
+											}
 											 
-												  if(isset($selected_station_id)){
-												  	// chiamata alla funzione per l'aggiornamento dei dati
-													$sql_update = "UPDATE station_tb SET station_full_name=\"" . $station_full_name . "\", site_lon=\"" . $site_lon;
-													$sql_update.= "\", site_lat=\"" . $site_lat . "\", operational_from=\"" . $operational_from . "\", operational_to=\"" . $operational_to;
-													$sql_update.= "\", manufacturer=\"" . $manufacturer . "\", EDMO_code=\"" . $EDMO_code . "\", summary=\"" . $summary . "\", DoA_estimation_method=\"" . $DoA_estimation_method;
-													$sql_update.= "\", calibration_type=\"" . $calibration_type . "\", calibration_link=\"" . $calibration_link . "\", last_calibration_date=\"" . $last_calibration_date . "\", institution_website=\"" . $institution_website;
-													$sql_update.= "\", institution_name=\"". $institution_name . "\", transmit_central_frequency=\"" . $transmit_central_frequency . "\", temporal_resolution=\"" . $temporal_resolution;
-													$sql_update.= "\", radial_QC_velocity_threshold=\"" . $radial_QC_velocity_threshold . "\", radial_QC_variance_threshold=\"" . $radial_QC_variance_threshold;
-													$sql_update.= "\", radial_QC_temporal_derivative_threshold=\"" . $radial_QC_temporal_derivative_threshold . "\", radial_QC_median_filter_RCLim=\"" . $radial_QC_median_filter_RCLim;
-													$sql_update.= "\", radial_QC_median_filter_AngLim=\"" . $radial_QC_median_filter_AngLim . "\", radial_QC_median_filter_CurLim=\"" . $radial_QC_median_filter_CurLim;
-													$sql_update.= "\", radial_QC_average_radial_bearing_min=\"" . $radial_QC_average_radial_bearing_min . "\", radial_QC_average_radial_bearing_max=\"" . $radial_QC_average_radial_bearing_max;
-													$sql_update.= "\", radial_QC_radial_count_threshold=\"" . $radial_QC_radial_count_threshold . "\", number_of_range_cells=\"" . $number_of_range_cells;
-													if($EU_HFR_processing_flag == 0){
-														$sql_update.= "\", radial_input_folder_path=\"" . $radial_input_folder_path . "\", radial_HFRnetCDF_folder_path=\"" . $radial_HFRnetCDF_folder_path;	
-													}		
-													$sql_update.= "\" WHERE network_id=\"" . $current_network_id . "\" AND station_id=\"" . $selected_station_id . "\"";
-													$update_query = mysql_query($sql_update, $conn) or die(mysql_error());
+										  if(isset($selected_station_id)){
+										  	// chiamata alla funzione per l'aggiornamento dei dati
+												$sql_update = "UPDATE station_tb SET station_full_name=\"" . $station_full_name . "\", site_lon=\"" . $site_lon;
+												$sql_update.= "\", site_lat=\"" . $site_lat . "\", operational_from=\"" . $operational_from . "\", operational_to=\"" . $operational_to;
+												$sql_update.= "\", manufacturer=\"" . $manufacturer . "\", EDMO_code=\"" . $EDMO_code . "\", summary=\"" . $summary . "\", DoA_estimation_method=\"" . $DoA_estimation_method;
+												$sql_update.= "\", calibration_type=\"" . $calibration_type . "\", calibration_link=\"" . $calibration_link . "\", last_calibration_date=\"" . $last_calibration_date . "\", institution_website=\"" . $institution_website;
+												$sql_update.= "\", institution_name=\"". $institution_name . "\", transmit_central_frequency=\"" . $transmit_central_frequency . "\", temporal_resolution=\"" . $temporal_resolution;
+												$sql_update.= "\", radial_QC_velocity_threshold=\"" . $radial_QC_velocity_threshold . "\", radial_QC_variance_threshold=\"" . $radial_QC_variance_threshold;
+												$sql_update.= "\", radial_QC_temporal_derivative_threshold=\"" . $radial_QC_temporal_derivative_threshold . "\", radial_QC_median_filter_RCLim=\"" . $radial_QC_median_filter_RCLim;
+												$sql_update.= "\", radial_QC_median_filter_AngLim=\"" . $radial_QC_median_filter_AngLim . "\", radial_QC_median_filter_CurLim=\"" . $radial_QC_median_filter_CurLim;
+												$sql_update.= "\", radial_QC_average_radial_bearing_min=\"" . $radial_QC_average_radial_bearing_min . "\", radial_QC_average_radial_bearing_max=\"" . $radial_QC_average_radial_bearing_max;
+												$sql_update.= "\", radial_QC_radial_count_threshold=\"" . $radial_QC_radial_count_threshold . "\", number_of_range_cells=\"" . $number_of_range_cells;
+												if($EU_HFR_processing_flag == 0){
+													$sql_update.= "\", radial_input_folder_path=\"" . $radial_input_folder_path . "\", radial_HFRnetCDF_folder_path=\"" . $radial_HFRnetCDF_folder_path;	
+												}		
+												$sql_update.= "\" WHERE network_id=\"" . $current_network_id . "\" AND station_id=\"" . $selected_station_id . "\"";
+												$update_query = mysql_query($sql_update, $conn) or die(mysql_error());
 														
-													// set void dates to NULL value
-													if(($operational_from == '0000-00-00') || ($operational_from == '')){
-														$sql_null_update = "UPDATE station_tb SET operational_from=NULL WHERE network_id=\"" . $current_network_id . "\" AND station_id=\"" . $selected_station_id . "\"";
-														$null_update_query = mysql_query($sql_null_update, $conn) or die(mysql_error());
-													}
-													if(($operational_to == '0000-00-00') || ($operational_to == '')){
-														$sql_null_update = "UPDATE station_tb SET operational_to=NULL WHERE network_id=\"" . $current_network_id . "\" AND station_id=\"" . $selected_station_id . "\"";
-														$null_update_query = mysql_query($sql_null_update, $conn) or die(mysql_error());
-													}
-													if(($last_calibration_date == '0000-00-00') || ($last_calibration_date == '')){
-														$sql_null_update = "UPDATE station_tb SET last_calibration_date=NULL WHERE network_id=\"" . $current_network_id . "\" AND station_id=\"" . $selected_station_id . "\"";
-														$null_update_query = mysql_query($sql_null_update, $conn) or die(mysql_error());
-													}	
-														
-													$mess = "The station information have been updated successfully.";
+												// set void dates to NULL value
+												if(($operational_from == '0000-00-00') || ($operational_from == '')){
+													$sql_null_update = "UPDATE station_tb SET operational_from=NULL WHERE network_id=\"" . $current_network_id . "\" AND station_id=\"" . $selected_station_id . "\"";
+													$null_update_query = mysql_query($sql_null_update, $conn) or die(mysql_error());
 												}
+												if(($operational_to == '0000-00-00') || ($operational_to == '')){
+													$sql_null_update = "UPDATE station_tb SET operational_to=NULL WHERE network_id=\"" . $current_network_id . "\" AND station_id=\"" . $selected_station_id . "\"";
+													$null_update_query = mysql_query($sql_null_update, $conn) or die(mysql_error());
+												}
+												if(($last_calibration_date == '0000-00-00') || ($last_calibration_date == '')){
+													$sql_null_update = "UPDATE station_tb SET last_calibration_date=NULL WHERE network_id=\"" . $current_network_id . "\" AND station_id=\"" . $selected_station_id . "\"";
+													$null_update_query = mysql_query($sql_null_update, $conn) or die(mysql_error());
+												}	
+														
+												$mess = "The station information have been updated successfully.";
+											}
 									
-												header("Location: station_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $current_network_id . "&sta=" . $selected_station_id . "&login_message=" . $mess);
-											}
-											else{
-												$mess =  "No temporal resolution has been inserted. Please insert one.";
-												header("Location: station_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $current_network_id . "&sta=" . $selected_station_id . "&login_message=" . $mess);
-											}
+											header("Location: station_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $current_network_id . "&sta=" . $selected_station_id . "&login_message=" . $mess);
 										}
 										else{
-											$mess =  "No institution website has been inserted. Please insert one.";
-											header("Location: station_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $current_network_id . "&sta=" . $selected_station_id . "&login_message=" . $mess);
+											$mess =  "No temporal resolution has been inserted. Please insert one.";
+											header("Location: station_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $current_network_id . "&sta=" . $selected_station_id . "&login_message=" . $mess . $recoverSession);
 										}
 									}
 									else{
-										$mess =  "No institution name has been inserted. Please insert one.";
-										header("Location: station_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $current_network_id . "&sta=" . $selected_station_id . "&login_message=" . $mess);
+										$mess =  "No institution website has been inserted. Please insert one.";
+										header("Location: station_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $current_network_id . "&sta=" . $selected_station_id . "&login_message=" . $mess . $recoverSession);
 									}
-								}	
+								}
 								else{
-									$mess =  "No calibration link has been inserted. Please insert one.";
-									header("Location: station_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $current_network_id . "&sta=" . $selected_station_id . "&login_message=" . $mess);
-								}	
-							}
+									$mess =  "No institution name has been inserted. Please insert one.";
+									header("Location: station_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $current_network_id . "&sta=" . $selected_station_id . "&login_message=" . $mess . $recoverSession);
+								}
+							}	
 							else{
-								$mess =  "No calibration type has been inserted. Please insert one.";
-								header("Location: station_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $current_network_id . "&sta=" . $selected_station_id . "&login_message=" . $mess);
-							}
+								$mess =  "No calibration link has been inserted. Please insert one.";
+								header("Location: station_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $current_network_id . "&sta=" . $selected_station_id . "&login_message=" . $mess . $recoverSession);
+							}	
 						}
 						else{
-							$mess =  "No Direction of Arrival estimation method has been inserted. Please insert one.";
-							header("Location: station_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $current_network_id . "&sta=" . $selected_station_id . "&login_message=" . $mess);
+							$mess =  "No calibration type has been inserted. Please insert one.";
+							header("Location: station_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $current_network_id . "&sta=" . $selected_station_id . "&login_message=" . $mess . $recoverSession);
 						}
 					}
 					else{
-						$mess =  "No summary has been inserted. Please insert one.";
-						header("Location: station_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $current_network_id . "&sta=" . $selected_station_id . "&login_message=" . $mess);
+						$mess =  "No Direction of Arrival estimation method has been inserted. Please insert one.";
+						header("Location: station_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $current_network_id . "&sta=" . $selected_station_id . "&login_message=" . $mess . $recoverSession);
 					}
 				}
 				else{
-					$mess =  "No EDMO code has been inserted. Please insert one.";
-					header("Location: station_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $current_network_id . "&sta=" . $selected_station_id . "&login_message=" . $mess);
+					$mess =  "No summary has been inserted. Please insert one.";
+					header("Location: station_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $current_network_id . "&sta=" . $selected_station_id . "&login_message=" . $mess . $recoverSession);
 				}
 			}
-		else
-		{
-			// menu a tendina
-			?>
-			<b>Select the station:</b>
-			<form action="<?php echo $_SERVER['PHP_SELF'] . "?usr=" . $_GET["usr"] . "&ntw=" . $current_network_id; ?>" method="post">
-			<select name="selected_station">
-				<?php
-				while ($row=mysql_fetch_array($result_stations)){
-					$station=$row['station_id'];
-					echo("<option value=\"" . $station . "\">" . $station . "</option>");
-				}
-				echo("<option value=\"Add new station\">Add new station</option>");
-				if(isset($selected_station_id)){
-					echo("<option selected=\"selected\" value=\"" . $selected_station_id . "\">" . $selected_station_id . "</option>");
-				}
-				else{
-					echo("<option selected=\"selected\"> Select the station </option>");
-				}
-				?>
-			</select>
-			<input name="submit" type="submit" value="Select">
-			</form>
+			else{
+				$mess =  "No EDMO code has been inserted. Please insert one.";
+				header("Location: station_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $current_network_id . "&sta=" . $selected_station_id . "&login_message=" . $mess . $recoverSession);
+			}
+		}
+	else
+	{
+		// menu a tendina
+		?>
+		<b>Select the station:</b>
+		<form action="<?php echo $_SERVER['PHP_SELF'] . "?usr=" . $_GET["usr"] . "&ntw=" . $current_network_id; ?>" method="post">
+		<select name="selected_station">
+		<?php
+			while ($row=mysql_fetch_array($result_stations)){
+				$station=$row['station_id'];
+				echo("<option value=\"" . $station . "\">" . $station . "</option>");
+			}
+			echo("<option value=\"Add new station\">Add new station</option>");
+			if(isset($selected_station_id)){
+				echo("<option selected=\"selected\" value=\"" . $selected_station_id . "\">" . $selected_station_id . "</option>");
+			}
+			else{
+				echo("<option selected=\"selected\"> Select the station </option>");
+			}
+		?>
+		</select>
+		<input name="submit" type="submit" value="Select">
+		</form>
 			
-			<?	
+		<?	
 			// form per l'inserimento
 			if($selected_station_id == "Add new station"){
 				echo("<br><br><b>Please insert information about the new station from " . $current_network_id . " network</b>");
@@ -337,9 +577,16 @@ $num_fields_stations = mysql_num_fields($result_stations);
 			else {
 				echo("<br><br><b>Please insert information about the " . $selected_station_id . " station from " . $current_network_id . " network (* = mandatory fields)</b>");
 			}
-			
+				
 			// recupero eventuali informazioni inserite in precedenza
-			$previous = $selected_station;
+			if($_GET['err'] == 1)
+			{
+				$previous = $_SESSION;
+			}
+			else
+			{
+				$previous = $selected_station;
+			}
 			$previous_station_full_name = $previous["station_full_name"];
 			$previous_site_lon = $previous["site_lon"];
 			$previous_site_lat = $previous["site_lat"];
@@ -369,74 +616,74 @@ $num_fields_stations = mysql_num_fields($result_stations);
 			$previous_radial_input_folder_path = $previous["radial_input_folder_path"];
 			$previous_radial_HFRnetCDF_folder_path = $previous["radial_HFRnetCDF_folder_path"];
 						
-			?>
-			<form action="<?php echo $_SERVER['PHP_SELF'] . "?usr=" . $_GET["usr"] . "&ntw=" . $current_network_id . "&sta=" . $selected_station_id; ?>" method="post">
-			<?php 
+		?>
+		<form action="<?php echo $_SERVER['PHP_SELF'] . "?usr=" . $_GET["usr"] . "&ntw=" . $current_network_id . "&sta=" . $selected_station_id; ?>" method="post">
+		<?php 
 			echo("<br>Network ID: " . $current_network_id . "<br />");
-			?>
-			<br>Station full name:<br>			
-			<textarea name="station_full_name" cols="80" rows="5"><?php echo($previous_station_full_name);?></textarea><br />
-			<br>Site longitude (decimal degrees):<br>
-			<input name="site_lon" type="number" size="80" step="0.00001" min="-180" max="180" value="<?php echo($previous_site_lon);?>"><br />		
-			<br>Site latitude (decimal degrees):<br>
-			<input name="site_lat" type="number" size="80" step="0.00001" min="-90" max="90" value="<?php echo($previous_site_lat);?>"><br />
-			<br>Operational from (YYYY-MM-DD):<br>			
-			<input name="operational_from" type="text" size="80" value="<?php echo($previous_operational_from);?>"><br />
-			<br>Operational to (YYYY-MM-DD):<br>			
-			<input name="operational_to" type="text" size="80" value="<?php echo($previous_operational_to);?>"><br />	
-			<br>Manufacturer:<br>
-			<input name="manufacturer" type="text" size="80" value="<?php echo($previous_manufacturer);?>"><br />	
-			<br><b>EDMO code of the institution responsible for the HFR station management and radial files generation*</b>:<br>
-			<input name="EDMO_code" type="number" size="80" value="<?php echo($previous_EDMO_code);?>"><br />	
-			<br><b>Institution responsible for the HFR station management and radial files generation*</b>:<br>			
-			<input name="institution_name" type="text" size="80" value="<?php echo($previous_institution_name);?>"><br />	
-			<br><b>Website of the institution responsible for the HFR station management and radial files generation*</b>:<br>			
-			<input name="institution_website" type="text" size="80" value="<?php echo($previous_institution_website);?>"><br />		
-			<br><b>Summary*</b>:<br>			
-			<textarea name="summary" cols="80" rows="5"><?php echo($previous_summary);?></textarea><br />	
-			<br><b>Direction of Arrival estimation method*</b>:<br>
-			<input name="DoA_estimation_method" type="text" size="80" value="<?php echo($previous_DoA_estimation_method);?>"><br />		
-			<br><b>Calibration type*</b>:<br>			
-			<input name="calibration_type" type="text" size="80" value="<?php echo($previous_calibration_type);?>"><br />	
-			<br><b>Calibration link*</b>:<br>			
-			<input name="calibration_link" type="text" size="80" value="<?php echo($previous_calibration_link);?>"><br />	
-			<br>Last calibration date (YYYY-MM-DD):<br>			
-			<input name="last_calibration_date" type="text" size="80" value="<?php echo($previous_last_calibration_date);?>"><br />	
-			<br>Transmit central frequency (MHz):<br>
-			<input name="transmit_central_frequency" type="number" size="80" step="0.00001" min="0" max="100" value="<?php echo($previous_transmit_central_frequency);?>"><br />	
-			<br><b>Temporal resolution (decimal minutes, e.g. 37'30"= 37.5 minutes)*</b>:<br>
-			<input name="temporal_resolution" type="number" size="80" step="0.01" min="0" max="100" value="<?php echo($previous_temporal_resolution);?>"><br />
-			<br>Radial QC velocity threshold (m/s):<br>
-			<input name="radial_QC_velocity_threshold" type="number" size="80" step="0.01" min="0" max="100" value="<?php echo($previous_radial_QC_velocity_threshold);?>"><br />	
-			<br>Radial QC variance threshold (m/s):<br>
-			<input name="radial_QC_variance_threshold" type="number" size="80" step="0.01" min="0" max="100" value="<?php echo($previous_radial_QC_variance_threshold);?>"><br />	
-			<br>Radial QC temporal derivative threshold (m/s):<br>
-			<input name="radial_QC_temporal_derivative_threshold" type="number" size="80" step="0.01" min="0" max="100" value="<?php echo($previous_radial_QC_temporal_derivative_threshold);?>"><br />
-			<br>Radial QC median filter Radius Circle (km):<br>
-			<input name="radial_QC_median_filter_RCLim" type="number" size="80" step="0.01" min="0" max="100" value="<?php echo($previous_radial_QC_median_filter_RCLim);?>"><br />	
-			<br>Radial QC median filter Angular Limit (degrees):<br>
-			<input name="radial_QC_median_filter_AngLim" type="number" size="80" step="0.01" min="0" max="360" value="<?php echo($previous_radial_QC_median_filter_AngLim);?>"><br />
-			<br>Radial QC median filter Current Limit (m/s):<br>
-			<input name="radial_QC_median_filter_CurLim" type="number" size="80" step="0.01" min="0" max="100" value="<?php echo($previous_radial_QC_median_filter_CurLim);?>"><br />
-			<br>Radial QC average radial bearing minimum (degrees):<br>
-			<input name="radial_QC_average_radial_bearing_min" type="number" size="80" step="0.01" min="0" max="360" value="<?php echo($previous_radial_QC_average_radial_bearing_min);?>"><br />
-			<br>Radial QC average radial bearing maximum (degrees):<br>
-			<input name="radial_QC_average_radial_bearing_max" type="number" size="80" step="0.01" min="0" max="360" value="<?php echo($previous_radial_QC_average_radial_bearing_max);?>"><br />
-			<br>Radial QC radial count threshold:<br>
-			<input name="radial_QC_radial_count_threshold" type="number" size="80" value="<?php echo($previous_radial_QC_radial_count_threshold);?>"><br />	
-			<br>Maximum range (km) - set it bigger than the real one, use it as an upper bound (e.g. 1.5*real max range):<br>
-			<input name="number_of_range_cells" type="number" size="80" value="<?php echo($previous_number_of_range_cells);?>"><br />						
-			<?php
+		?>
+		<br>Station full name:<br>			
+		<textarea name="station_full_name" cols="80" rows="5"><?php echo($previous_station_full_name);?></textarea><br />
+		<br>Site longitude (decimal degrees):<br>
+		<input name="site_lon" type="number" size="80" step="0.00001" min="-180" max="180" value="<?php echo($previous_site_lon);?>"><br />		
+		<br>Site latitude (decimal degrees):<br>
+		<input name="site_lat" type="number" size="80" step="0.00001" min="-90" max="90" value="<?php echo($previous_site_lat);?>"><br />
+		<br>Operational from (YYYY-MM-DD):<br>			
+		<input name="operational_from" type="text" size="80" value="<?php echo($previous_operational_from);?>"><br />
+		<br>Operational to (YYYY-MM-DD):<br>			
+		<input name="operational_to" type="text" size="80" value="<?php echo($previous_operational_to);?>"><br />	
+		<br>Manufacturer:<br>
+		<input name="manufacturer" type="text" size="80" value="<?php echo($previous_manufacturer);?>"><br />	
+		<br><b>EDMO code of the institution responsible for the HFR station management and radial files generation*</b>:<br>
+		<input name="EDMO_code" type="number" size="80" value="<?php echo($previous_EDMO_code);?>"><br />	
+		<br><b>Institution responsible for the HFR station management and radial files generation*</b>:<br>			
+		<input name="institution_name" type="text" size="80" value="<?php echo($previous_institution_name);?>"><br />	
+		<br><b>Website of the institution responsible for the HFR station management and radial files generation*</b>:<br>			
+		<input name="institution_website" type="text" size="80" value="<?php echo($previous_institution_website);?>"><br />		
+		<br><b>Summary*</b>:<br>			
+		<textarea name="summary" cols="80" rows="5"><?php echo($previous_summary);?></textarea><br />	
+		<br><b>Direction of Arrival estimation method*</b>:<br>
+		<input name="DoA_estimation_method" type="text" size="80" value="<?php echo($previous_DoA_estimation_method);?>"><br />		
+		<br><b>Calibration type*</b>:<br>			
+		<input name="calibration_type" type="text" size="80" value="<?php echo($previous_calibration_type);?>"><br />	
+		<br><b>Calibration link*</b>:<br>			
+		<input name="calibration_link" type="text" size="80" value="<?php echo($previous_calibration_link);?>"><br />	
+		<br>Last calibration date (YYYY-MM-DD):<br>			
+		<input name="last_calibration_date" type="text" size="80" value="<?php echo($previous_last_calibration_date);?>"><br />	
+		<br>Transmit central frequency (MHz):<br>
+		<input name="transmit_central_frequency" type="number" size="80" step="0.00001" min="0" max="100" value="<?php echo($previous_transmit_central_frequency);?>"><br />	
+		<br><b>Temporal resolution (decimal minutes, e.g. 37'30"= 37.5 minutes)*</b>:<br>
+		<input name="temporal_resolution" type="number" size="80" step="0.01" min="0" max="100" value="<?php echo($previous_temporal_resolution);?>"><br />
+		<br>Radial QC velocity threshold (m/s):<br>
+		<input name="radial_QC_velocity_threshold" type="number" size="80" step="0.01" min="0" max="100" value="<?php echo($previous_radial_QC_velocity_threshold);?>"><br />	
+		<br>Radial QC variance threshold (m/s):<br>
+		<input name="radial_QC_variance_threshold" type="number" size="80" step="0.01" min="0" max="100" value="<?php echo($previous_radial_QC_variance_threshold);?>"><br />	
+		<br>Radial QC temporal derivative threshold (m/s):<br>
+		<input name="radial_QC_temporal_derivative_threshold" type="number" size="80" step="0.01" min="0" max="100" value="<?php echo($previous_radial_QC_temporal_derivative_threshold);?>"><br />
+		<br>Radial QC median filter Radius Circle (km):<br>
+		<input name="radial_QC_median_filter_RCLim" type="number" size="80" step="0.01" min="0" max="100" value="<?php echo($previous_radial_QC_median_filter_RCLim);?>"><br />	
+		<br>Radial QC median filter Angular Limit (degrees):<br>
+		<input name="radial_QC_median_filter_AngLim" type="number" size="80" step="0.01" min="0" max="360" value="<?php echo($previous_radial_QC_median_filter_AngLim);?>"><br />
+		<br>Radial QC median filter Current Limit (m/s):<br>
+		<input name="radial_QC_median_filter_CurLim" type="number" size="80" step="0.01" min="0" max="100" value="<?php echo($previous_radial_QC_median_filter_CurLim);?>"><br />
+		<br>Radial QC average radial bearing minimum (degrees):<br>
+		<input name="radial_QC_average_radial_bearing_min" type="number" size="80" step="0.01" min="0" max="360" value="<?php echo($previous_radial_QC_average_radial_bearing_min);?>"><br />
+		<br>Radial QC average radial bearing maximum (degrees):<br>
+		<input name="radial_QC_average_radial_bearing_max" type="number" size="80" step="0.01" min="0" max="360" value="<?php echo($previous_radial_QC_average_radial_bearing_max);?>"><br />
+		<br>Radial QC radial count threshold:<br>
+		<input name="radial_QC_radial_count_threshold" type="number" size="80" value="<?php echo($previous_radial_QC_radial_count_threshold);?>"><br />	
+		<br>Maximum range (km) - set it bigger than the real one, use it as an upper bound (e.g. 1.5*real max range):<br>
+		<input name="number_of_range_cells" type="number" size="80" value="<?php echo($previous_number_of_range_cells);?>"><br />						
+		<?php
 			if($EU_HFR_processing_flag == 0){
 				echo("<br>Radial files input folder path:<br>");			
 				echo("<input name=\"radial_input_folder_path\" type=\"text\" size=\"80\" value=\"" . $previous_radial_input_folder_path . "\"><br />");			
 				echo("<br>Radial netCDF output files folder path:<br>");		
 				echo("<input name=\"radial_HFRnetCDF_folder_path\" type=\"text\" size=\"80\" value=\"" . $previous_radial_HFRnetCDF_folder_path . "\"><br />");			
 			}
-			?>	
-			<input name="submit" type="submit" value="Save">
-			</form>
-			<?
+		?>	
+		<input name="submit" type="submit" value="Save">
+		</form>
+		<?
 		}
 		?>
 	<!-- end #station_form --></div>    

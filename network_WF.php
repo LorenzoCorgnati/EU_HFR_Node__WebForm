@@ -92,7 +92,7 @@ function getfolder(e) {
   <!-- end #header --></div>
   
   <div id="mainContent">
-    <h1>HFR networks information TEST5</h1>
+    <h1>HFR networks information</h1>
     <div id="Buttons">
     	<a href="index.php?logout=true"><button style="height:40px; width:200px">Logout</button><a>
     		<br><br>
