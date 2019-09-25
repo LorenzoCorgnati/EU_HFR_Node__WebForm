@@ -11,6 +11,9 @@ The webform allows for:
 - creating HFR station entries related to HFR networks;
 - inserting information about the HFR stations.
 
+The fields of the webform request information based on the metadata of the European common data and metadata model defined in the Jerico-Next deliverable D5.14 (http://www.jerico-ri.eu/download/jerico-next-deliverables/JERICO-NEXT-Deliverable_5.14_V1.pdf).
+
+
 The information inserted in the webform are stored into the MySQL database, that then feeds the Matlab applications responsible for the generation of radial and total velocity files in netCDF format according to the European standard data and metadata model for near real time HFR current data.
 
 

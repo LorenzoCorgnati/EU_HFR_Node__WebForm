@@ -92,7 +92,7 @@ function getfolder(e) {
   <!-- end #header --></div>
   
   <div id="mainContent">
-    <h1>HFR networks information</h1>
+    <h1>HFR networks information TEST5</h1>
     <div id="Buttons">
     	<a href="index.php?logout=true"><button style="height:40px; width:200px">Logout</button><a>
     		<br><br>
@@ -116,10 +116,311 @@ function getfolder(e) {
 			 // reindirizzamento alla homepage in caso di login mancato
 			 header("Location: index.php");
 		}		
+
+		// recupero delle informazioni inserite nel form
+		if($_GET['opf'] != '')
+		{
+			$_SESSION['operational_from'] = $_GET['opf'];
+		}
+		if($_GET['opt'] != '')
+		{
+			$_SESSION['operational_to'] = $_GET['opt'];
+		}
+		if($_GET['EDS'] != '')
+		{
+			$_SESSION['EDIOS_Series_id'] = $_GET['EDS'];
+		}
+		if($_GET['EDM'] != '')
+		{
+			$_SESSION['EDMO_code'] = $_GET['EDM'];
+		}
+		if($_GET['mtp'] != '')
+		{
+			$_SESSION['metadata_page'] = $_GET['mtp'];
+		}
+		if($_GET['tit'] != '')
+		{
+			$_SESSION['title'] = $_GET['tit'];
+		}
+		if($_GET['sum'] != '')
+		{
+			$_SESSION['summary'] = $_GET['sum'];
+		}
+		if($_GET['inm'] != '')
+		{
+			$_SESSION['institution_name'] = $_GET['inn'];
+		}
+		if($_GET['cit'] != '')
+		{
+			$_SESSION['citation_statement'] = $_GET['cit'];
+		}
+		if($_GET['lic'] != '')
+		{
+			$_SESSION['license'] = $_GET['lic'];
+		}
+		if($_GET['ack'] != '')
+		{
+			$_SESSION['acknowledgment'] = $_GET['ack'];
+		}
+		if($_GET['vel'] != '')
+		{
+			$_SESSION['total_QC_velocity_threshold'] = $_GET['vel'];
+		}
+		if($_GET['gdp'] != '')
+		{
+			$_SESSION['total_QC_GDOP_threshold'] = $_GET['gdp'];
+		}
+		if($_GET['var'] != '')
+		{
+			$_SESSION['total_QC_variance_threshold'] = $_GET['var'];
+		}
+		if($_GET['tdr'] != '')
+		{
+			$_SESSION['total_QC_temporal_derivative_threshold'] = $_GET['tdr'];
+		}
+		if($_GET['ddn'] != '')
+		{
+			$_SESSION['total_QC_data_density_threshold'] = $_GET['ddn'];
+		}
+		if($_GET['prj'] != '')
+		{
+			$_SESSION['project'] = $_GET['prj'];
+		}
+		if($_GET['inw'] != '')
+		{
+			$_SESSION['institution_website'] = $_GET['inw'];
+		}
+		if($_GET['cnn'] != '')
+		{
+			$_SESSION['contributor_name'] = $_GET['cnn'];
+		}
+		if($_GET['cnr'] != '')
+		{
+			$_SESSION['contributor_role'] = $_GET['cnr'];
+		}
+		if($_GET['cne'] != '')
+		{
+			$_SESSION['contributor_email'] = $_GET['cne'];
+		}
+		if($_GET['com'] != '')
+		{
+			$_SESSION['comment'] = $_GET['com'];
+		}
+		if($_GET['ntn'] != '')
+		{
+			$_SESSION['network_name'] = $_GET['ntn'];
+		}
+		if($_GET['are'] != '')
+		{
+			$_SESSION['area'] = $_GET['are'];
+		}
+		if($_GET['lnn'] != '')
+		{
+			$_SESSION['geospatial_lon_min'] = $_GET['lnn'];
+		}
+		if($_GET['lnx'] != '')
+		{
+			$_SESSION['geospatial_lon_max'] = $_GET['lnx'];
+		}
+		if($_GET['ltn'] != '')
+		{
+			$_SESSION['geospatial_lat_min'] = $_GET['ltn'];
+		}
+		if($_GET['ltx'] != '')
+		{
+			$_SESSION['geospatial_lat_max'] = $_GET['ltx'];
+		}
+		if($_GET['grs'] != '')
+		{
+			$_SESSION['grid_resolution'] = $_GET['grs'];
+		}
+		if($_GET['trs'] != '')
+		{
+			$_SESSION['temporal_resolution'] = $_GET['trs'];
+		}
+		if($_GET['rbg'] != '')
+		{
+			$_SESSION['region_bigram'] = $_GET['rbg'];
+		}
+		if($_GET['csr'] != '')
+		{
+			$_SESSION['combination_search_radius'] = $_GET['csr'];
+		}
+		if($_GET['tip'] != '')
+		{
+			$_SESSION['total_input_folder_path'] = $_GET['tip'];
+		}
+		if($_GET['thp'] != '')
+		{
+			$_SESSION['total_HFRnetCDF_folder_path'] = $_GET['thp'];
+		}
+		if($_GET['tmp'] != '')
+		{
+			$_SESSION['total_mat_folder_path'] = $_GET['tmp'];
+		}
 		 
 		// valorizzazione delle variabili con i parametri dal form
 		if(isset($_POST['submit'])&&($_POST['submit']=="Save"))
 		{
+			// archiviazione delle informazioni già inserite nella variabili di sessione			
+			if(isset($_POST['operational_from']))
+			{
+				$_SESSION['operational_from'] = addslashes(filter_var($_POST['operational_from'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['operational_to']))
+			{
+				$_SESSION['operational_to'] = addslashes(filter_var($_POST['operational_to'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['EDIOS_Series_id']))
+			{
+				$_SESSION['EDIOS_Series_id'] = addslashes(filter_var($_POST['EDIOS_Series_id'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['EDMO_code']))
+			{
+				$_SESSION['EDMO_code'] = addslashes(filter_var($_POST['EDMO_code'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['metadata_page']))
+			{
+				$_SESSION['metadata_page'] = addslashes(filter_var($_POST['metadata_page'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['title']))
+			{
+				$_SESSION['title'] = addslashes(filter_var($_POST['title'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['summary']))
+			{
+				$_SESSION['summary'] = addslashes(filter_var($_POST['summary'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['institution_name']))
+			{
+				$_SESSION['institution_name'] = addslashes(filter_var($_POST['institution_name'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['citation_statement']))
+			{
+				$_SESSION['citation_statement'] = addslashes(filter_var($_POST['citation_statement'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['license']))
+			{
+				$_SESSION['license'] = addslashes(filter_var($_POST['license'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['acknowledgment']))
+			{
+				$_SESSION['acknowledgment'] = addslashes(filter_var($_POST['acknowledgment'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['total_QC_velocity_threshold']))
+			{
+				$_SESSION['total_QC_velocity_threshold'] = addslashes(filter_var($_POST['total_QC_velocity_threshold'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['total_QC_GDOP_threshold']))
+			{
+				$_SESSION['total_QC_GDOP_threshold'] = addslashes(filter_var($_POST['total_QC_GDOP_threshold'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['total_QC_variance_threshold']))
+			{
+				$_SESSION['total_QC_variance_threshold'] = addslashes(filter_var($_POST['total_QC_variance_threshold'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['total_QC_temporal_derivative_threshold']))
+			{
+				$_SESSION['total_QC_temporal_derivative_threshold'] = addslashes(filter_var($_POST['total_QC_temporal_derivative_threshold'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['total_QC_data_density_threshold']))
+			{
+				$_SESSION['total_QC_data_density_threshold'] = addslashes(filter_var($_POST['total_QC_data_density_threshold'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['project']))
+			{
+				$_SESSION['project'] = addslashes(filter_var($_POST['project'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['institution_website']))
+			{
+				$_SESSION['institution_website'] = addslashes(filter_var($_POST['institution_website'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['contributor_name']))
+			{
+				$_SESSION['contributor_name'] = addslashes(filter_var($_POST['contributor_name'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['contributor_role']))
+			{
+				$_SESSION['contributor_role'] = addslashes(filter_var($_POST['contributor_role'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['contributor_email']))
+			{
+				$_SESSION['contributor_email'] = addslashes(filter_var($_POST['contributor_email'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['comment']))
+			{
+				$_SESSION['comment'] = addslashes(filter_var($_POST['comment'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['network_name']))
+			{
+				$_SESSION['network_name'] = addslashes(filter_var($_POST['network_name'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['area']))
+			{
+				$_SESSION['area'] = addslashes(filter_var($_POST['area'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['geospatial_lon_min']))
+			{
+				$_SESSION['geospatial_lon_min'] = addslashes(filter_var($_POST['geospatial_lon_min'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['geospatial_lon_max']))
+			{
+				$_SESSION['geospatial_lon_max'] = addslashes(filter_var($_POST['geospatial_lon_max'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['geospatial_lat_min']))
+			{
+				$_SESSION['geospatial_lat_min'] = addslashes(filter_var($_POST['geospatial_lat_min'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['geospatial_lat_max']))
+			{
+				$_SESSION['geospatial_lat_max'] = addslashes(filter_var($_POST['geospatial_lat_max'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['grid_resolution']))
+			{
+				$_SESSION['grid_resolution'] = addslashes(filter_var($_POST['grid_resolution'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['temporal_resolution']))
+			{
+				$_SESSION['temporal_resolution'] = addslashes(filter_var($_POST['temporal_resolution'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['region_bigram']))
+			{
+				$_SESSION['region_bigram'] = addslashes(filter_var($_POST['region_bigram'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['EU_HFR_processing_flag']))
+			{
+				$_SESSION['EU_HFR_processing_flag'] = addslashes(filter_var($_POST['EU_HFR_processing_flag'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['combination_search_radius']))
+			{
+				$_SESSION['combination_search_radius'] = addslashes(filter_var($_POST['combination_search_radius'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['total_input_folder_path']))
+			{
+				$_SESSION['total_input_folder_path'] = addslashes(filter_var($_POST['total_input_folder_path'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['total_HFRnetCDF_folder_path']))
+			{
+				$_SESSION['total_HFRnetCDF_folder_path'] = addslashes(filter_var($_POST['total_HFRnetCDF_folder_path'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['total_mat_folder_path']))
+			{
+				$_SESSION['total_mat_folder_path'] = addslashes(filter_var($_POST['total_mat_folder_path'], FILTER_SANITIZE_STRING));
+			}
+			// String for recover session data
+			$recoverSession = "&err=1&opf=" . $_SESSION['operational_from'] . "&opt=" . $_SESSION['operational_to'] . "&EDS=" . $_SESSION['EDIOS_Series_id']
+												 . "&EDM=" . $_SESSION['EDMO_code'] . "&mtp=" . $_SESSION['metadata_page'] . "&tit=" . $_SESSION['title'] . "&sum=" . $_SESSION['summary']
+												 . "&inn=" . $_SESSION['institution_name'] . "&cit=" . $_SESSION['citation_statement'] . "&lic=" . $_SESSION['license']
+												 . "&ack=" . $_SESSION['acknowledgment'] . "&vel=" . $_SESSION['total_QC_velocity_threshold'] . "&gdp=" . $_SESSION['total_QC_GDOP_threshold']
+												 . "&var=" . $_SESSION['total_QC_variance_threshold'] . "&tdr=" . $_SESSION['total_QC_temporal_derivative_threshold'] . "&ddn=" . $_SESSION['total_QC_data_density_threshold']
+												 . "&prj=" . $_SESSION['project'] . "&inw=" . $_SESSION['institution_website'] . "&cnn=" . $_SESSION['contributor_name'] . "&cnr=" . $_SESSION['contributor_role']
+												 . "&cne=" . $_SESSION['contributor_email'] . "&com=" . $_SESSION['comment'] . "&ntn=" . $_SESSION['network_name'] . "&are=" . $_SESSION['area']
+												 . "&lnn=" . $_SESSION['geospatial_longitude_min'] . "&lnx=" . $_SESSION['geospatial_longitude_max'] . "&ltn=" . $_SESSION['geospatial_latitude_min']
+											   . "&ltx=" . $_SESSION['geospatial_latitude_max'] . "&grs=" . $_SESSION['grid_resolution'] . "&trs=" . $_SESSION['temporal_resolution']
+                         . "&rbg=" . $_SESSION['region_bigram'] . "&csr=" . $_SESSION['combination_search_radius'] . "&tip=" . $_SESSION['total_input_folder_path']
+												 . "&thp=" . $_SESSION['total_HFRnetCDF_folder_path'] . "&tmp=" . $_SESSION['total_mat_folder_path'];
+
+			// check esistenza e valorizzazione delle variabili con i parametri dal form
 			if(isset($selected_network_id)){
 				if(isset($_POST['EDIOS_Series_id']))
 				{
@@ -319,102 +620,102 @@ function getfolder(e) {
 																						}
 																						else{
 																							$mess =  "No temporal resolution has been inserted. Please insert one.";
-																							header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess);
+																							header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess . $recoverSession);
 																						}
 																					}
 																					else{
 																						$mess =  "No grid resolution has been inserted. Please insert one.";
-																						header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess);
+																						header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess . $recoverSession);
 																					}
 																				}
 																				else{
 																					$mess =  "No contributor email has been inserted. Please insert one.";
-																					header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess);
+																					header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess . $recoverSession);
 																				}
 																			}
 																			else{
-																				$mess =  "No contributor role website has been inserted. Please insert one.";
-																				header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess);
+																				$mess =  "No contributor role has been inserted. Please insert one.";
+																				header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess . $recoverSession);
 																			}
 																		}
 																		else{
 																			$mess =  "No contributor name has been inserted. Please insert one.";
-																			header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess);
+																			header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess . $recoverSession);
 																		}
 																	}
 																	else{
 																		$mess =  "No institution website has been inserted. Please insert one.";
-																		header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess);
+																		header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess . $recoverSession);
 																	}
 																}
 																else{
 																	$mess =  "No geospatial latitude maximum has been inserted. Please insert one.";
-																	header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess);
+																	header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess . $recoverSession);
 																}
 															}
 															else{
 																$mess =  "No geospatial latitude minimum has been inserted. Please insert one.";
-																header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess);
+																header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess . $recoverSession);
 															}
 														}
 														else{
 															$mess =  "No geospatial longitude maximum has been inserted. Please insert one.";
-															header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess);
+															header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess . $recoverSession);
 														}
 													}
 													else{
 														$mess =  "No geospatial longitude minimum has been inserted. Please insert one.";
-														header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess);
+														header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess . $recoverSession);
 													}
 												}
 												else{
 													$mess =  "No acknowledgment has been inserted. Please insert one.";
-													header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess);
+													header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess . $recoverSession);
 												}
 											}
 											else{
 												$mess =  "No license has been inserted. Please insert one.";
-												header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess);
+												header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess . $recoverSession);
 											}
 										}
 										else{
 											$mess =  "No citation statement has been inserted. Please insert one.";
-											header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess);
+											header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess . $recoverSession);
 										}
 									}
 									else{
 										$mess =  "No institution name has been inserted. Please insert one.";
-										header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess);
+										header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess . $recoverSession);
 									}
 								}
 								else{
 									$mess =  "No summary has been inserted. Please insert one.";
-									header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess);
+									header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess . $recoverSession);
 								}
 							}
 							else{
 								$mess =  "No title has been inserted. Please insert one.";
-								header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess);
+								header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess . $recoverSession);
 							}
 						}
 						else{
 							$mess =  "No metadata page has been inserted. Please insert one.";
-							header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess);
+							header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess . $recoverSession);
 						}
 					}
 					else{
 						$mess =  "No EDMO code has been inserted. Please insert one.";
-						header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess);
+						header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess . $recoverSession);
 					}
 				}
 				else{
 					$mess =  "No EDIOS Serie ID has been inserted. Please insert one.";
-					header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess);
+					header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess . $recoverSession);
 				}
 			}
 			else{
 				$mess = "No network has been selected. Please select one.";
-				header("Location: network_WF.php?usr=" . $_GET["usr"] . "&login_message=" . $mess);
+				header("Location: network_WF.php?usr=" . $_GET["usr"] . "&login_message=" . $mess . $recoverSession);
 			}
 		}
 		else
@@ -448,7 +749,14 @@ function getfolder(e) {
 			echo("<br><br><b>Please insert information about the " . $selected_network_id . " network (* = mandatory fields)</b>");
 			
 			// recupero eventuali informazioni inserite in precedenza
-			$previous = $selected_network;
+			if($_GET['err'] == 1)
+			{
+				$previous = $_SESSION;
+			}
+			else
+			{
+				$previous = $selected_network;
+			}
 			$previous_operational_from = $previous["operational_from"];
 			$previous_operational_to = $previous["operational_to"];
 			$previous_EDIOS_Series_id = $previous["EDIOS_Series_id"];
