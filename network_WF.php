@@ -426,12 +426,12 @@ function getfolder(e) {
 				{
 					$EDIOS_Series_id = addslashes(filter_var($_POST['EDIOS_Series_id'], FILTER_SANITIZE_STRING));
 			  	}
-				if($EDIOS_Series_id!=''){
+				// if($EDIOS_Series_id!=''){
 					if(isset($_POST['EDMO_code']))
 				  	{
 				    	$EDMO_code = addslashes(filter_var($_POST['EDMO_code'], FILTER_SANITIZE_STRING));
 				  	}
-					if($EDMO_code!=0){
+					// if($EDMO_code!=0){
 					 	if(isset($_POST['metadata_page']))
 						{
 					    	$metadata_page = addslashes(filter_var($_POST['metadata_page'], FILTER_SANITIZE_STRING));
@@ -451,7 +451,7 @@ function getfolder(e) {
 									{
 										$institution_name = addslashes(filter_var($_POST['institution_name'], FILTER_SANITIZE_STRING));
 								  	}
-									if($institution_name!=''){
+									// if($institution_name!=''){
 										if(isset($_POST['citation_statement']))
 										{
 											$citation_statement = addslashes(filter_var($_POST['citation_statement'], FILTER_SANITIZE_STRING));
@@ -535,7 +535,7 @@ function getfolder(e) {
 																	{
 																    	$institution_website = addslashes(filter_var($_POST['institution_website'], FILTER_SANITIZE_STRING));
 																  	}
-																	if($institution_website!=''){
+																	// if($institution_website!=''){
 																		if(isset($_POST['contributor_name']))
 																		{	
 																		$contributor_name = addslashes(filter_var($_POST['contributor_name'], FILTER_SANITIZE_STRING));
@@ -642,11 +642,11 @@ function getfolder(e) {
 																			$mess =  "No contributor name has been inserted. Please insert one.";
 																			header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess . $recoverSession);
 																		}
-																	}
-																	else{
-																		$mess =  "No institution website has been inserted. Please insert one.";
-																		header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess . $recoverSession);
-																	}
+																	// }
+																	// else{
+																		// $mess =  "No institution website has been inserted. Please insert one.";
+																		// header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess . $recoverSession);
+																	// }
 																}
 																else{
 																	$mess =  "No geospatial latitude maximum has been inserted. Please insert one.";
@@ -682,11 +682,11 @@ function getfolder(e) {
 											$mess =  "No citation statement has been inserted. Please insert one.";
 											header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess . $recoverSession);
 										}
-									}
-									else{
-										$mess =  "No institution name has been inserted. Please insert one.";
-										header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess . $recoverSession);
-									}
+									// }
+									// else{
+										// $mess =  "No institution name has been inserted. Please insert one.";
+										// header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess . $recoverSession);
+									// }
 								}
 								else{
 									$mess =  "No summary has been inserted. Please insert one.";
@@ -702,16 +702,16 @@ function getfolder(e) {
 							$mess =  "No metadata page has been inserted. Please insert one.";
 							header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess . $recoverSession);
 						}
-					}
-					else{
-						$mess =  "No EDMO code has been inserted. Please insert one.";
-						header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess . $recoverSession);
-					}
-				}
-				else{
-					$mess =  "No EDIOS Serie ID has been inserted. Please insert one.";
-					header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess . $recoverSession);
-				}
+					// }
+					// else{
+						// $mess =  "No EDMO code has been inserted. Please insert one.";
+						// header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess . $recoverSession);
+					// }
+				// }
+				// else{
+					// $mess =  "No EDIOS Serie ID has been inserted. Please insert one.";
+					// header("Location: network_WF.php?usr=" . $_GET["usr"] . "&ntw=" . $selected_network_id . "&login_message=" . $mess . $recoverSession);
+				// }
 			}
 			else{
 				$mess = "No network has been selected. Please select one.";
@@ -800,16 +800,16 @@ function getfolder(e) {
 			<input name="operational_from" type="text" size="80" value="<?php echo($previous_operational_from);?>"><br />
 			<br>Operational to (YYYY-MM-DD):<br>			
 			<input name="operational_to" type="text" size="80" value="<?php echo($previous_operational_to);?>"><br />	
-			<br><b>EDIOS Series ID*</b>:<br>			
+			<br><b>EDIOS Series ID</b>:<br>			
 			<input name="EDIOS_Series_id" type="text" size="80" value="<?php echo($previous_EDIOS_Series_id);?>"><br />	
-			<br><b>EDMO code of the institution responsible for the HFR network management and total files generation*</b>:<br>
-			(In case of shared coordination, insert here only the reference of the institution responsible for total data production)<br>
+			<br><b>EDMO code of the institution responsible for the HFR network management and total files generation</b>:<br>
+			(To be filled only in case of an institution responsible for the HFR network management that is not managing any radial station)<br>
 			<input name="EDMO_code" type="number" size="80" value="<?php echo($previous_EDMO_code);?>"><br />
-			<br><b>Institution responsible for the HFR network management and total files generation*</b>:<br>
-			(In case of shared coordination, insert here only the reference of the institution responsible for total data production)<br>			
+			<br><b>Institution responsible for the HFR network management and total files generation</b>:<br>
+			(To be filled only in case of an institution responsible for the HFR network management that is not managing any radial station)<br>			
 			<input name="institution_name" type="text" size="80" value="<?php echo($previous_institution_name);?>"><br />	
-			<br><b>Website of the institution responsible for the HFR network management and total files generation*</b>:<br>
-			(In case of shared coordination, insert here only the reference of the institution responsible for total data production)<br>			
+			<br><b>Website of the institution responsible for the HFR network management and total files generation</b>:<br>
+			(To be filled only in case of an institution responsible for the HFR network management that is not managing any radial station)<br>			
 			<input name="institution_website" type="text" size="80" value="<?php echo($previous_institution_website);?>"><br />
 			<br><b>Contributor names*</b>:<br>
 			(Insert a semi-colon separated list of names)<br>
