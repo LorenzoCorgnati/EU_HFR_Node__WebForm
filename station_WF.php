@@ -671,7 +671,7 @@ $num_fields_stations = mysql_num_fields($result_stations);
 		<input name="radial_QC_average_radial_bearing_max" type="number" size="80" step="0.01" min="0" max="360" value="<?php echo($previous_radial_QC_average_radial_bearing_max);?>"><br />
 		<br>Radial QC radial count threshold:<br>
 		<input name="radial_QC_radial_count_threshold" type="number" size="80" value="<?php echo($previous_radial_QC_radial_count_threshold);?>"><br />	
-		<br>Maximum range (km) - set it bigger than the real one, use it as an upper bound (e.g. 1.5*real max range):<br>
+		<br>Maximum number of range cells - set it bigger than the real one, use it as an upper bound (e.g. 1.5*real maximum number of range cells):<br>
 		<input name="number_of_range_cells" type="number" size="80" value="<?php echo($previous_number_of_range_cells);?>"><br />						
 		<?php
 			if($EU_HFR_processing_flag == 0){
