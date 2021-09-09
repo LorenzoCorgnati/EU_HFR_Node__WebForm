@@ -1,24 +1,19 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <?php
-//$servername = "localhost";
-//$username = "HFR_lorenzo";
-//$password = "xWeLXHFQfvpBmDYO";
-//$dbname = "HFR_node_db";
-
-$servername_CDM = "localhost";
-$username_CDM = "lorenzo";
-$password_CDM = "4.BSUyMH58sV3fXM";
-$dbname_CDM = "CDM_cruises_db";
+$servername = "localhost";
+$username = "HFR_lorenzo";
+$password = "xWeLXHFQfvpBmDYO";
+$dbname = "HFR_node_db";
 
 // Create connection
-$conn_CDM = mysql_connect($servername_CDM, $username_CDM, $password_CDM);
+$conn = mysql_connect($servername, $username, $password);
 // Check connection
-if (!$conn_CDM) {
+if (!$conn) {
     die("Connection failed: " . mysql_connect_error());
 }
 
-mysql_select_db ($dbname_CDM);
+mysql_select_db ($dbname);
 
 mysql_query("SET NAMES 'utf8'");
 
@@ -96,7 +91,7 @@ if($_GET["usr"] != ''){
 				
 				// esecuzione della query con le credenziali di accesso
 				$sql_login = "SELECT id_login FROM login_tb WHERE username_login='" . $username . "' AND password_login='" . $password . "'";
-				$result_login = mysql_query($sql_login, $conn_CDM) or die(mysql_error());
+				$result_login = mysql_query($sql_login, $conn) or die(mysql_error());
 				$num_rows_login = mysql_num_rows($result_login);
 				
     			// controllo sul risultato dell'interrogazione
@@ -156,5 +151,5 @@ if($_GET["login_message"] != ''){
 </body>
 </html>
 <?php
-mysql_close($conn_CDM);
+mysql_close($conn);
 ?>

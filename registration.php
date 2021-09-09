@@ -6,11 +6,6 @@ $username_HFR = "HFR_lorenzo";
 $password_HFR = "xWeLXHFQfvpBmDYO";
 $dbname_HFR = "HFR_node_db";
 
-$servername_CDM = "localhost";
-$username_CDM = "lorenzo";
-$password_CDM = "4.BSUyMH58sV3fXM";
-$dbname_CDM = "CDM_cruises_db";
-
 // Create connection to EU HFR node DB
 $conn_HFR = mysql_connect($servername_HFR, $username_HFR, $password_HFR);
 // Check connection
@@ -22,16 +17,6 @@ mysql_select_db ($dbname_HFR, $conn_HFR);
 
 mysql_query("SET NAMES 'utf8'", $conn_HFR);
 
-// Create connection to CDM DB
-$conn_CDM = mysql_connect($servername_CDM, $username_CDM, $password_CDM);
-// Check connection
-if (!$conn_CDM) {
-    die("Connection failed: " . mysql_connect_error());
-}
-
-mysql_select_db ($dbname_CDM, $conn_CDM);
-
-mysql_query("SET NAMES 'utf8'", $conn_CDM);
 ?>
 
 <head>
@@ -152,8 +137,8 @@ mysql_query("SET NAMES 'utf8'", $conn_CDM);
 												$insert_query = mysql_query($sql_insert, $conn_HFR) or die(mysql_error());
 																	
 												// chiamata alla funzione per l'inserimento dei dati in CDM DB
-												$sql_insert_CDM = "INSERT INTO login_tb (username_login, password_login) VALUES (\"" . $username . "\",\"" . $password . "\")";
-												$insert_query_CDM = mysql_query($sql_insert_CDM, $conn_CDM) or die(mysql_error());
+												$sql_insert_psw = "INSERT INTO login_tb (username_login, password_login) VALUES (\"" . $username . "\",\"" . $password . "\")";
+												$insert_query_psw = mysql_query($sql_insert_psw, $conn_HFR) or die(mysql_error());
 																	
 												$mess =  "The account information have been successfully inserted.";	 
 																	
@@ -251,5 +236,4 @@ if($_GET["login_message"] != ''){
 </html>
 <?php
 mysql_close($conn_HFR);
-mysql_close($conn_CDM);
 ?>

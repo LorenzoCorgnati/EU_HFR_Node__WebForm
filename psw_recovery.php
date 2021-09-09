@@ -6,11 +6,6 @@ $username = "HFR_lorenzo";
 $password = "xWeLXHFQfvpBmDYO";
 $dbname = "HFR_node_db";
 
-$servername_CDM = "localhost";
-$username_CDM = "lorenzo";
-$password_CDM = "4.BSUyMH58sV3fXM";
-$dbname_CDM = "CDM_cruises_db";
-
 // Create connection to EU HFR node DB
 $conn = mysql_connect($servername, $username, $password);
 // Check connection
@@ -22,16 +17,6 @@ mysql_select_db ($dbname, $conn);
 
 mysql_query("SET NAMES 'utf8'",$conn);
 
-// Create connection to CDM DB
-$conn_CDM = mysql_connect($servername_CDM, $username_CDM, $password_CDM);
-// Check connection
-if (!$conn_CDM) {
-    die("Connection failed: " . mysql_connect_error());
-}
-
-mysql_select_db ($dbname_CDM, $conn_CDM);
-
-mysql_query("SET NAMES 'utf8'", $conn_CDM);
 ?>
 
 <head>
@@ -89,8 +74,8 @@ mysql_query("SET NAMES 'utf8'", $conn_CDM);
 			$password = sha1($randomString);
 			
 			// chiamata alla funzione per l'aggiornamento dei dati in CDM DB
-			$sql_update_CDM = "UPDATE login_tb SET password_login=\"" . $password . "\" WHERE username_login=\"" . $username . "\"";
-			$update_query_CDM = mysql_query($sql_update_CDM, $conn_CDM) or die(mysql_error());
+			$sql_update_psw = "UPDATE login_tb SET password_login=\"" . $password . "\" WHERE username_login=\"" . $username . "\"";
+			$update_query_psw = mysql_query($sql_update_psw, $conn) or die(mysql_error());
 			
 			$mess =  "The temporary password has been successfully updated and sent to you.";
 										
@@ -146,5 +131,4 @@ if($_GET["login_message"] != ''){
 </html>
 <?php
 mysql_close($conn);
-mysql_close($conn_CDM);
 ?>

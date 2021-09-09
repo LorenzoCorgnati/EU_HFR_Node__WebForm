@@ -6,11 +6,6 @@ $username = "HFR_lorenzo";
 $password = "xWeLXHFQfvpBmDYO";
 $dbname = "HFR_node_db";
 
-$servername_CDM = "localhost";
-$username_CDM = "lorenzo";
-$password_CDM = "4.BSUyMH58sV3fXM";
-$dbname_CDM = "CDM_cruises_db";
-
 // Create connection to EU HFR node DB
 $conn = mysql_connect($servername, $username, $password);
 // Check connection
@@ -21,17 +16,6 @@ if (!$conn) {
 mysql_select_db ($dbname, $conn);
 
 mysql_query("SET NAMES 'utf8'",$conn);
-
-// Create connection to CDM DB
-$conn_CDM = mysql_connect($servername_CDM, $username_CDM, $password_CDM);
-// Check connection
-if (!$conn_CDM) {
-    die("Connection failed: " . mysql_connect_error());
-}
-
-mysql_select_db ($dbname_CDM, $conn_CDM);
-
-mysql_query("SET NAMES 'utf8'", $conn_CDM);
 
 // Query the database for retrieveing managed HFR network IDs
 $sql_networks_info = "SELECT network_id FROM account_tb WHERE username='" . $_GET["usr"] . "'";
@@ -111,9 +95,9 @@ $networks = $networks_info['network_id'];
 				// chiamata alla funzione per l'inserimento dei dati in CDM DB
 				if(isset($_POST['password'])){
 					if(!empty($_POST['password'])){
-						$sql_update_CDM = "UPDATE login_tb SET password_login=\"" . $password;
-						$sql_update_CDM.= "\" WHERE username_login=\"" . $_GET["usr"] . "\"";
-						$update_query_CDM = mysql_query($sql_update_CDM, $conn_CDM) or die(mysql_error());
+						$sql_update_psw = "UPDATE login_tb SET password_login=\"" . $password;
+						$sql_update_psw.= "\" WHERE username_login=\"" . $_GET["usr"] . "\"";
+						$update_query_psw = mysql_query($sql_update_psw, $conn) or die(mysql_error());
 					}
 				}
 					
@@ -190,5 +174,4 @@ if($_GET["login_message"] != ''){
 </html>
 <?php
 mysql_close($conn);
-mysql_close($conn_CDM);
 ?>
