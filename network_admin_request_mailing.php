@@ -1,11 +1,11 @@
 <?php
-$servername = "localhost";
-$username_HFR = "HFR_lorenzo";
-$password = "xWeLXHFQfvpBmDYO";
+$servername = "150.145.136.104";
+$username = "HFRwebformUser";
+$password = "!_e2MKonpy5paMTgR9_!";
 $dbname = "HFR_node_db";
 
 // Create connection to EU HFR node DB
-$conn = mysql_connect($servername, $username_HFR, $password);
+$conn = mysql_connect($servername, $username, $password);
 // Check connection
 if (!$conn) {
     die("Connection failed: " . mysql_connect_error());

@@ -1,9 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <?php
-$servername = "localhost";
-$username = "HFR_lorenzo";
-$password = "xWeLXHFQfvpBmDYO";
+$servername = "150.145.136.104";
+$username = "HFRwebformUser";
+$password = "!_e2MKonpy5paMTgR9_!";
 $dbname = "HFR_node_db";
 
 // Create connection
