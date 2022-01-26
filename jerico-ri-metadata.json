@@ -1,0 +1,43 @@
+{
+    "_class": "Software",
+    "alias": "https://github.com/LorenzoCorgnati/EU_HFR_Node__WebForm",
+    "abstract": "PHP scripts for the data entry web form for managing HFR network information within the EU HFR Node.",
+    "author": {
+        "_class": "Organization",
+        "alias": "https://edmo.seadatanet.org/report/134"
+    },
+    "created": "2018-11-20",
+    "contributor": [
+        {
+            "_class": "Person",
+            "name": "Lorenzo Corgnati <lorenzo.corgnati@sp.ismar.cnr.it>"
+        }
+    ],
+    "description": "These application is written in PHP language and is based on a MySQL database where the information about HFR networks, stations and data inserted in the web form are stored. The application is designed for High Frequency Radar (HFR) data management according to the European HFR node processing workflow that generates radial and total velocity files in netCDF format according to the European standard data and metadata model for near real time HFR current data.",
+    "distribution": {
+        "_class": "Distribution",
+        "accessURL": "https://github.com/LorenzoCorgnati/EU_HFR_Node__WebForm"
+    },
+    "downloadURL": "https://github.com/LorenzoCorgnati/EU_HFR_Node__WebForm/archive/refs/heads/master.zip",
+    "keywords": ["php","netcdf","physical-oceanography","ocean-sciences","hf-radar","data-preservation","jerico-ri"],
+    "language": ["English"],
+    "license": "This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.\n\nThis program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.\n\nYou should have received a copy of the GNU General Public License along with this program. If not, see http://www.gnu.org/licenses/.",
+    "modified": "2021-10-01",
+    "name": "EU_HFR_Node__WebForm",
+    "organization": {
+        "_class": "Organization",
+        "alias": "https://edmo.seadatanet.org/report/134"
+    },
+    "owner": {
+        "_class": "Organization",
+        "alias": "https://edmo.seadatanet.org/report/134"
+    },
+    "publisher": {
+        "_class": "Organization",
+        "alias": "https://edmo.seadatanet.org/report/134"
+    },
+    "published": "2018-11-20",
+    "programming_language": ["MATLAB"],
+    "url": "https://github.com/LorenzoCorgnati/EU_HFR_Node__WebForm",
+    "version": "v1.1"
+}
