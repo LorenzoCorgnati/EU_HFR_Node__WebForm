@@ -16,6 +16,10 @@ The fields of the webform request information based on the metadata of the Europ
 
 The information inserted in the webform are stored into the MySQL database, that then feeds the Matlab applications responsible for the generation of radial and total velocity files in netCDF format according to the European standard data and metadata model for near real time HFR current data.
 
+Cite as:
+Lorenzo Corgnati. (2018). EU_HFR_NODE_WebForm. Zenodo. https://doi.org/10.5281/zenodo.3460422
+
+
 
 Author: Lorenzo Corgnati
 
