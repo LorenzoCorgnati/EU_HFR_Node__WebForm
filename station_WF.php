@@ -471,9 +471,9 @@ $num_fields_stations = mysql_num_fields($result_stations);
 										  if(isset($selected_station_id)){
 										  	// chiamata alla funzione per l'aggiornamento dei dati
 												$sql_update = "UPDATE station_tb SET station_full_name=\"" . $station_full_name . "\", site_lon=\"" . $site_lon;
-												$sql_update.= "\", site_lat=\"" . $site_lat . "\", operational_from=\"" . $operational_from . "\", operational_to=\"" . $operational_to;
+												$sql_update.= "\", site_lat=\"" . $site_lat;
 												$sql_update.= "\", manufacturer=\"" . $manufacturer . "\", EDMO_code=\"" . $EDMO_code . "\", summary=\"" . $summary . "\", DoA_estimation_method=\"" . $DoA_estimation_method;
-												$sql_update.= "\", calibration_type=\"" . $calibration_type . "\", calibration_link=\"" . $calibration_link . "\", last_calibration_date=\"" . $last_calibration_date . "\", institution_website=\"" . $institution_website;
+												$sql_update.= "\", calibration_type=\"" . $calibration_type . "\", calibration_link=\"" . $calibration_link . "\", institution_website=\"" . $institution_website;
 												$sql_update.= "\", institution_name=\"". $institution_name . "\", transmit_central_frequency=\"" . $transmit_central_frequency . "\", temporal_resolution=\"" . $temporal_resolution;
 												$sql_update.= "\", radial_QC_velocity_threshold=\"" . $radial_QC_velocity_threshold . "\", radial_QC_variance_threshold=\"" . $radial_QC_variance_threshold;
 												$sql_update.= "\", radial_QC_temporal_derivative_threshold=\"" . $radial_QC_temporal_derivative_threshold . "\", radial_QC_median_filter_RCLim=\"" . $radial_QC_median_filter_RCLim;
@@ -491,13 +491,25 @@ $num_fields_stations = mysql_num_fields($result_stations);
 													$sql_null_update = "UPDATE station_tb SET operational_from=NULL WHERE network_id=\"" . $current_network_id . "\" AND station_id=\"" . $selected_station_id . "\"";
 													$null_update_query = mysql_query($sql_null_update, $conn) or die(mysql_error());
 												}
+												else{
+													$sql_opf_update = "UPDATE station_tb SET operational_from=\"" . $operational_from . "\" WHERE network_id=\"" . $current_network_id . "\" AND station_id=\"" . $selected_station_id . "\"";
+													$opf_update_query = mysql_query($sql_opf_update, $conn) or die(mysql_error());
+												}
 												if(($operational_to == '0000-00-00') || ($operational_to == '')){
 													$sql_null_update = "UPDATE station_tb SET operational_to=NULL WHERE network_id=\"" . $current_network_id . "\" AND station_id=\"" . $selected_station_id . "\"";
 													$null_update_query = mysql_query($sql_null_update, $conn) or die(mysql_error());
 												}
+												else{
+													$sql_opt_update = "UPDATE station_tb SET operational_to=\"" . $operational_to . "\" WHERE network_id=\"" . $current_network_id . "\" AND station_id=\"" . $selected_station_id . "\"";
+													$opt_update_query = mysql_query($sql_opt_update, $conn) or die(mysql_error());
+												}
 												if(($last_calibration_date == '0000-00-00') || ($last_calibration_date == '')){
 													$sql_null_update = "UPDATE station_tb SET last_calibration_date=NULL WHERE network_id=\"" . $current_network_id . "\" AND station_id=\"" . $selected_station_id . "\"";
 													$null_update_query = mysql_query($sql_null_update, $conn) or die(mysql_error());
+												}
+												else{
+													$sql_lcd_update = "UPDATE station_tb SET last_calibration_date=\"" . $last_calibration_date . "\" WHERE network_id=\"" . $current_network_id . "\" AND station_id=\"" . $selected_station_id . "\"";
+													$lcd_update_query = mysql_query($sql_lcd_update, $conn) or die(mysql_error());
 												}	
 														
 												$mess = "The station information have been updated successfully.";

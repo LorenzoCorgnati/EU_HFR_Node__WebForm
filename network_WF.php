@@ -587,8 +587,7 @@ function getfolder(e) {
 																							// check if the selected id is already present in the DB
 																						    if(mysql_num_rows($result_selected_network) > 0){
 																						   		// chiamata alla funzione per l'aggiornamento dei dati
-																							    $sql_update = "UPDATE network_tb SET operational_from=\"" . $operational_from . "\", operational_to=\"" . $operational_to . "\", EDIOS_Series_id=\"";
-																								$sql_update.= $EDIOS_Series_id . "\", EDMO_code=\"" . $EDMO_code . "\", metadata_page=\"" . $metadata_page;
+																							    $sql_update = "UPDATE network_tb SET EDIOS_Series_id=\"" . $EDIOS_Series_id . "\", EDMO_code=\"" . $EDMO_code . "\", metadata_page=\"" . $metadata_page;
 																								$sql_update.= "\", title=\"" . $title . "\", summary=\"" . $summary . "\", institution_name=\"". $institution_name . "\", citation_statement=\"" . $citation_statement;
 																								$sql_update.= "\", license=\"" . $license . "\", acknowledgment=\"" . $acknowledgment . "\", total_QC_velocity_threshold=\"" . $total_QC_velocity_threshold;
 																								$sql_update.= "\", total_QC_GDOP_threshold=\"" . $total_QC_GDOP_threshold . "\", total_QC_variance_threshold=\"" . $total_QC_variance_threshold;
@@ -609,9 +608,17 @@ function getfolder(e) {
 																									$sql_null_update = "UPDATE network_tb SET operational_from=NULL WHERE network_id=\"" . $selected_network_id . "\"";
 																									$null_update_query = mysql_query($sql_null_update, $conn) or die(mysql_error());
 																								}
+																								else{
+																									$sql_opf_update = "UPDATE network_tb SET operational_from=\"" . $operational_from . "\" WHERE network_id=\"" . $selected_network_id . "\"";
+																									$opf_update_query = mysql_query($sql_opf_update, $conn) or die(mysql_error());
+																								}
 																								if(($operational_to == '0000-00-00') || ($operational_to == '')){
 																									$sql_null_update = "UPDATE network_tb SET operational_to=NULL WHERE network_id=\"" . $selected_network_id . "\"";
 																									$null_update_query = mysql_query($sql_null_update, $conn) or die(mysql_error());
+																								}
+																								else{
+																									$sql_opt_update = "UPDATE network_tb SET operational_to=\"" . $operational_to . "\" WHERE network_id=\"" . $selected_network_id . "\"";
+																									$opt_update_query = mysql_query($sql_opt_update, $conn) or die(mysql_error());
 																								}					
 																							
 																								$mess = "The network information have been updated successfully.";

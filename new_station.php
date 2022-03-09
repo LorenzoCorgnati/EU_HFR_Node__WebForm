@@ -75,7 +75,7 @@ if($_GET["ntw"] != ''){
 						header("Location: new_station.php?usr=" . $username . "&ntw=" . $current_network_id . "&login_message=" . $mess);
 				}
 				else{
-					// Insert new network into network_tb table
+					// Insert new station into station_tb table
 					$sql_insert = "INSERT INTO station_tb (station_id, network_id) VALUES (\"" . $station_id . "\",\"" . $current_network_id . "\")";
 					$insert_query = mysql_query($sql_insert, $conn_HFR) or die(mysql_error());
 						
