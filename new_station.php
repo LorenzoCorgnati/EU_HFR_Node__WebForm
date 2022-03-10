@@ -7,15 +7,14 @@ $password_HFR = "!_e2MKonpy5paMTgR9_!";
 $dbname_HFR = "HFR_node_db";
 
 // Create connection to EU HFR node DB
-$conn_HFR = mysql_connect($servername_HFR, $username_HFR, $password_HFR);
+$conn_HFR = mysqli_connect($servername_HFR, $username_HFR, $password_HFR, $dbname_HFR);
 // Check connection
 if (!$conn_HFR) {
-    die("Connection failed: " . mysql_connect_error());
+    die("Connection failed: " . mysqli_connect_error());
 }
 
-mysql_select_db ($dbname_HFR, $conn_HFR);
-
-mysql_query("SET NAMES 'utf8'",$conn_HFR);
+// Set the desired charset after establishing a connection
+mysqli_set_charset($conn_HFR, 'utf8');
 
 if($_GET["usr"] != ''){
 	$username = $_GET["usr"];
@@ -67,17 +66,17 @@ if($_GET["ntw"] != ''){
 		  	if($station_id!=''){
 		  		// Check if the station ID already exists
 				$sql_stations = "SELECT * FROM station_tb WHERE station_id='$station_id'";
-				$result_stations = mysql_query($sql_stations, $conn_HFR) or die(mysql_error());
-				$count_stations = mysql_num_rows($result_stations);  
+				$result_stations = mysqli_query($conn_HFR, $sql_stations) or die(mysqli_error());
+				$count_stations = mysqli_num_rows($result_stations);  
 				
 				if ($count_stations>0){
 						$mess = "The station ID you inserted already exists. Please choose a different one. Station ID MUST be equal to the EDIOS Platform ID of the HFR station.";
 						header("Location: new_station.php?usr=" . $username . "&ntw=" . $current_network_id . "&login_message=" . $mess);
 				}
 				else{
-					// Insert new station into station_tb table
+					// Insert new network into network_tb table
 					$sql_insert = "INSERT INTO station_tb (station_id, network_id) VALUES (\"" . $station_id . "\",\"" . $current_network_id . "\")";
-					$insert_query = mysql_query($sql_insert, $conn_HFR) or die(mysql_error());
+					$insert_query = mysqli_query($conn_HFR, $sql_insert) or die(mysqli_error());
 						
 					$mess =  "The new station has been added";
 							    
@@ -92,16 +91,16 @@ if($_GET["ntw"] != ''){
 		else
 		{
 			// form per l'inserimento										
-			?>
+		?>
 			<form action="<?php echo $_SERVER['PHP_SELF'] . "?usr=" . $_GET['usr'] . "&ntw=" . $current_network_id; ?>" method="post">
 			<br>New station ID (station ID MUST be equal to the EDIOS Platform ID of the HFR station):<br>			
 			<input name="station_id" type="text" value=""><br />	
 			<input name="submit" type="submit" value="Add">
 			</form>
 			<br><br>After having added the new station please fill in the information from the Station Web Form.
-			<?
+			<?php
 		}
-		?>
+			?>
 	<!-- end #psw_recovery_form --></div>    
   	<!-- end #mainContent --></div>
 	<!-- Questo elemento di clearing deve seguire immediatamente il div #mainContent al fine di forzare il div #container a contenere tutti i float di livello inferiore --><br class="clearfloat" />
@@ -123,5 +122,5 @@ if($_GET["login_message"] != ''){
 </body>
 </html>
 <?php
-mysql_close($conn_HFR);
+mysqli_close($conn_HFR);
 ?>

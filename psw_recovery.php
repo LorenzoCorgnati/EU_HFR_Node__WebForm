@@ -7,15 +7,14 @@ $password = "!_e2MKonpy5paMTgR9_!";
 $dbname = "HFR_node_db";
 
 // Create connection to EU HFR node DB
-$conn = mysql_connect($servername, $username, $password);
+$conn = mysqli_connect($servername, $username, $password, $dbname);
 // Check connection
 if (!$conn) {
-    die("Connection failed: " . mysql_connect_error());
+    die("Connection failed: " . mysqli_connect_error());
 }
 
-mysql_select_db ($dbname, $conn);
-
-mysql_query("SET NAMES 'utf8'",$conn);
+// Set the desired charset after establishing a connection
+mysqli_set_charset($conn, 'utf8');
 
 ?>
 
@@ -54,8 +53,8 @@ mysql_query("SET NAMES 'utf8'",$conn);
 		  	}
 			// Retrieve information related to the username
 			$sql_recovery = "SELECT * FROM account_tb WHERE username='$username'";
-			$result_recovery = mysql_query($sql_recovery, $conn) or die(mysql_error());
-			$recovery = mysql_fetch_assoc($result_recovery);  
+			$result_recovery = mysqli_query($conn, $sql_recovery) or die(mysqli_error());
+			$recovery = mysqli_fetch_assoc($result_recovery);  
 			
 			$name = $recovery["name"];
 			$surname = $recovery["surname"];
@@ -75,7 +74,7 @@ mysql_query("SET NAMES 'utf8'",$conn);
 			
 			// chiamata alla funzione per l'aggiornamento dei dati in CDM DB
 			$sql_update_psw = "UPDATE login_tb SET password_login=\"" . $password . "\" WHERE username_login=\"" . $username . "\"";
-			$update_query_psw = mysql_query($sql_update_psw, $conn) or die(mysql_error());
+			$update_query_psw = mysqli_query($conn, $sql_update_psw) or die(mysqli_error());
 			
 			$mess =  "The temporary password has been successfully updated and sent to you.";
 										
@@ -106,7 +105,7 @@ mysql_query("SET NAMES 'utf8'",$conn);
 			<div id="recovery_warning">
 				<p><b>You are highly recommended to change it after the first login.</p>
 			</div>
-			<?
+			<?php
 		}
 		?>
 	<!-- end #psw_recovery_form --></div>    
@@ -130,5 +129,5 @@ if($_GET["login_message"] != ''){
 </body>
 </html>
 <?php
-mysql_close($conn);
+mysqli_close($conn);
 ?>

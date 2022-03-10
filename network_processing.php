@@ -7,15 +7,14 @@ $password_HFR = "!_e2MKonpy5paMTgR9_!";
 $dbname_HFR = "HFR_node_db";
 
 // Create connection to EU HFR node DB
-$conn_HFR = mysql_connect($servername_HFR, $username_HFR, $password_HFR);
+$conn_HFR = mysqli_connect($servername_HFR, $username_HFR, $password_HFR, $dbname_HFR);
 // Check connection
 if (!$conn_HFR) {
-    die("Connection failed: " . mysql_connect_error());
+    die("Connection failed: " . mysqli_connect_error());
 }
 
-mysql_select_db ($dbname_HFR, $conn_HFR);
-
-mysql_query("SET NAMES 'utf8'",$conn_HFR);
+// Set the desired charset after establishing a connection
+mysqli_set_charset($conn_HFR, 'utf8');
 
 if($_GET["usr"] != ''){
 	$username = $_GET["usr"];
@@ -69,14 +68,14 @@ if($_GET["ntw"] != ''){
 				if($_POST["push_data"] == "Yes"){
 					// Update network_tb table with EU_HFR_processing_flag=1
 					$sql_update = "UPDATE network_tb SET EU_HFR_processing_flag=1 WHERE network_id=\"" . $network_id . "\"";
-					$update_query = mysql_query($sql_update, $conn_HFR) or die(mysql_error());
+					$update_query = mysqli_query($conn_HFR, $sql_update) or die(mysqli_error());
 					$mess =  "The processing options has been added to your new network.";
 					header("Location: network_WF.php?usr=" . $username . "&login_message=" . $mess);
 				}	
 				elseif($_POST["push_data"] == "No"){
 					// Update network_tb table with EU_HFR_processing_flag=0
 					$sql_update = "UPDATE network_tb SET EU_HFR_processing_flag=0 WHERE network_id=\"" . $network_id . "\"";
-					$update_query = mysql_query($sql_update, $conn_HFR) or die(mysql_error());
+					$update_query = mysqli_query($conn_HFR, $sql_update) or die(mysqli_error());
 					$mess =  "The processing options has been added to your new network.";
 					header("Location: network_WF.php?usr=" . $username . "&login_message=" . $mess);
 				}
@@ -90,7 +89,7 @@ if($_GET["ntw"] != ''){
 		else
 		{
 			// radio buttons for the processing options								
-			?>
+		?>
 			<form action="<?php echo $_SERVER['PHP_SELF'] . "?usr=" . $_GET['usr'] . "&ntw=" . $network_id; ?>" method="post">
 				<fieldset>
 					<?php
@@ -128,5 +127,5 @@ if($_GET["login_message"] != ''){
 </body>
 </html>
 <?php
-mysql_close($conn_HFR);
+mysqli_close($conn_HFR);
 ?>

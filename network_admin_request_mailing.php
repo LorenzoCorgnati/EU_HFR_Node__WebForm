@@ -5,20 +5,19 @@ $password = "!_e2MKonpy5paMTgR9_!";
 $dbname = "HFR_node_db";
 
 // Create connection to EU HFR node DB
-$conn = mysql_connect($servername, $username, $password);
+$conn = mysqli_connect($servername, $username, $password, $dbname);
 // Check connection
 if (!$conn) {
-    die("Connection failed: " . mysql_connect_error());
+    die("Connection failed: " . mysqli_connect_error());
 }
 
-mysql_select_db ($dbname, $conn);
-
-mysql_query("SET NAMES 'utf8'",$conn);
+// Set the desired charset after establishing a connection
+mysqli_set_charset($conn, 'utf8');
 
 // Retrieve information about the requesting username
 $sql_requesting_username = "SELECT * FROM account_tb WHERE username='" . $_GET["usr"] . "'";
-$result_requesting_username = mysql_query($sql_requesting_username, $conn) or die(mysql_error());
-$requesting_username = mysql_fetch_assoc($result_requesting_username);
+$result_requesting_username = mysqli_query($conn, $sql_requesting_username) or die(mysqli_error());
+$requesting_username = mysqli_fetch_assoc($result_requesting_username);
 $name_req = $requesting_username["name"];
 $surname_req = $requesting_username["surname"];
 $institution_req = $requesting_username["institution"];
@@ -26,15 +25,15 @@ $email_req = $requesting_username["email"];
 
 // Retrieve information about the HFR EU node administrator
 $sql_admin_username = "SELECT * FROM account_tb WHERE username='admin'";
-$result_admin_username = mysql_query($sql_admin_username, $conn) or die(mysql_error());
-$admin_username = mysql_fetch_assoc($result_admin_username);
+$result_admin_username = mysqli_query($conn, $sql_admin_username) or die(mysqli_error());
+$admin_username = mysqli_fetch_assoc($result_admin_username);
 $email_node_admin = $admin_username["email"];
 
 // Retrieve the username information of the selected network manager
 $sql_all_accounts = "SELECT * FROM account_tb";
-$result_all_accounts = mysql_query($sql_all_accounts, $conn) or die(mysql_error());
+$result_all_accounts = mysqli_query($conn, $sql_all_accounts) or die(mysqli_error());
 
-while ($accounts_row=mysql_fetch_array($result_all_accounts)){
+while ($accounts_row=mysqli_fetch_array($result_all_accounts)){
 	$networks = $accounts_row['network_id'];
 	if($accounts_row['username'] != 'admin'){
 		$stripped = str_replace(' ', '', $networks);
@@ -79,5 +78,5 @@ mail($email_req,"EU HFR Node network administration request",$msg_req,$headers_r
 $mess = "The network administration request has been succesfully sent.";					    
 header("Location: index.php?usr=" . $_GET['usr'] . "&login_message=" . $mess);
 
-mysql_close($conn);
+mysqli_close($conn);
 ?>

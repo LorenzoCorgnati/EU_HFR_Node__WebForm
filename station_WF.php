@@ -7,29 +7,28 @@ $password = "!_e2MKonpy5paMTgR9_!";
 $dbname = "HFR_node_db";
 
 // Create connection to EU HFR node DB
-$conn = mysql_connect($servername, $username, $password);
+$conn = mysqli_connect($servername, $username, $password, $dbname);
 // Check connection
 if (!$conn) {
-    die("Connection failed: " . mysql_connect_error());
+    die("Connection failed: " . mysqli_connect_error());
 }
 
-mysql_select_db ($dbname, $conn);
-
-mysql_query("SET NAMES 'utf8'",$conn);
+// Set the desired charset after establishing a connection
+mysqli_set_charset($conn, 'utf8');
 
 if($_GET["ntw"] != ''){
 	$current_network_id = $_GET["ntw"];
 	$sql_current_network = "SELECT * FROM network_tb WHERE network_id='" . $current_network_id . "'";
-	$result_current_network = mysql_query($sql_current_network, $conn) or die(mysql_error());
-	$current_network = mysql_fetch_assoc($result_current_network);
+	$result_current_network = mysqli_query($conn, $sql_current_network) or die(mysqli_error());
+	$current_network = mysqli_fetch_assoc($result_current_network);
 	$EU_HFR_processing_flag = $current_network['EU_HFR_processing_flag'];
 }
 
 if($_GET["sta"] != ''){
 	$selected_station_id = $_GET["sta"];
 	$sql_selected_station = "SELECT * FROM station_tb WHERE network_id='" . $current_network_id . "' AND station_id='" . $selected_station_id . "'";
-	$result_selected_station = mysql_query($sql_selected_station, $conn) or die(mysql_error());
-	$selected_station = mysql_fetch_assoc($result_selected_station);	
+	$result_selected_station = mysqli_query($conn, $sql_selected_station) or die(mysqli_error());
+	$selected_station = mysqli_fetch_assoc($result_selected_station);	
 }
 
 if($_POST["selected_station"] != ''){
@@ -44,16 +43,16 @@ if($_POST["selected_station"] != ''){
 	}
 	else{
 		$sql_selected_station = "SELECT * FROM station_tb WHERE network_id='" . $current_network_id . "' AND station_id='" . $selected_station_id . "'";
-		$result_selected_station = mysql_query($sql_selected_station, $conn) or die(mysql_error());
-		$selected_station = mysql_fetch_assoc($result_selected_station);
+		$result_selected_station = mysqli_query($conn, $sql_selected_station) or die(mysqli_error());
+		$selected_station = mysqli_fetch_assoc($result_selected_station);
 	}	
 }
 
 // Query EU HFR node DB for retrieving the stations associated to the current network
 $sql_stations = "SELECT * FROM station_tb WHERE network_id='" . $current_network_id . "'";
-$result_stations = mysql_query($sql_stations, $conn) or die(mysql_error());
-$num_rows_stations = mysql_num_rows($result_stations);
-$num_fields_stations = mysql_num_fields($result_stations);
+$result_stations = mysqli_query($conn, $sql_stations) or die(mysqli_error());
+$num_rows_stations = mysqli_num_rows($result_stations);
+$num_fields_stations = mysqli_num_fields($result_stations);
 
 ?>
 
@@ -484,32 +483,32 @@ $num_fields_stations = mysql_num_fields($result_stations);
 													$sql_update.= "\", radial_input_folder_path=\"" . $radial_input_folder_path . "\", radial_HFRnetCDF_folder_path=\"" . $radial_HFRnetCDF_folder_path;	
 												}		
 												$sql_update.= "\" WHERE network_id=\"" . $current_network_id . "\" AND station_id=\"" . $selected_station_id . "\"";
-												$update_query = mysql_query($sql_update, $conn) or die(mysql_error());
+												$update_query = mysqli_query($conn, $sql_update) or die(mysqli_error());
 														
 												// set void dates to NULL value
 												if(($operational_from == '0000-00-00') || ($operational_from == '')){
 													$sql_null_update = "UPDATE station_tb SET operational_from=NULL WHERE network_id=\"" . $current_network_id . "\" AND station_id=\"" . $selected_station_id . "\"";
-													$null_update_query = mysql_query($sql_null_update, $conn) or die(mysql_error());
+													$null_update_query = mysqli_query($conn, $sql_null_update) or die(mysqli_error());
 												}
 												else{
 													$sql_opf_update = "UPDATE station_tb SET operational_from=\"" . $operational_from . "\" WHERE network_id=\"" . $current_network_id . "\" AND station_id=\"" . $selected_station_id . "\"";
-													$opf_update_query = mysql_query($sql_opf_update, $conn) or die(mysql_error());
+													$opf_update_query = mysqli_query($conn, $sql_opf_update) or die(mysqli_error());
 												}
 												if(($operational_to == '0000-00-00') || ($operational_to == '')){
 													$sql_null_update = "UPDATE station_tb SET operational_to=NULL WHERE network_id=\"" . $current_network_id . "\" AND station_id=\"" . $selected_station_id . "\"";
-													$null_update_query = mysql_query($sql_null_update, $conn) or die(mysql_error());
+													$null_update_query = mysqli_query($conn, $sql_null_update) or die(mysqli_error());
 												}
 												else{
 													$sql_opt_update = "UPDATE station_tb SET operational_to=\"" . $operational_to . "\" WHERE network_id=\"" . $current_network_id . "\" AND station_id=\"" . $selected_station_id . "\"";
-													$opt_update_query = mysql_query($sql_opt_update, $conn) or die(mysql_error());
+													$opt_update_query = mysqli_query($conn, $sql_opt_update) or die(mysqli_error());
 												}
 												if(($last_calibration_date == '0000-00-00') || ($last_calibration_date == '')){
 													$sql_null_update = "UPDATE station_tb SET last_calibration_date=NULL WHERE network_id=\"" . $current_network_id . "\" AND station_id=\"" . $selected_station_id . "\"";
-													$null_update_query = mysql_query($sql_null_update, $conn) or die(mysql_error());
+													$null_update_query = mysqli_query($conn, $sql_null_update) or die(mysqli_error());
 												}
 												else{
 													$sql_lcd_update = "UPDATE station_tb SET last_calibration_date=\"" . $last_calibration_date . "\" WHERE network_id=\"" . $current_network_id . "\" AND station_id=\"" . $selected_station_id . "\"";
-													$lcd_update_query = mysql_query($sql_lcd_update, $conn) or die(mysql_error());
+													$lcd_update_query = mysqli_query($conn, $sql_lcd_update) or die(mysqli_error());
 												}	
 														
 												$mess = "The station information have been updated successfully.";
@@ -565,7 +564,7 @@ $num_fields_stations = mysql_num_fields($result_stations);
 		<form action="<?php echo $_SERVER['PHP_SELF'] . "?usr=" . $_GET["usr"] . "&ntw=" . $current_network_id; ?>" method="post">
 		<select name="selected_station">
 		<?php
-			while ($row=mysql_fetch_array($result_stations)){
+			while ($row=mysqli_fetch_array($result_stations)){
 				$station=$row['station_id'];
 				echo("<option value=\"" . $station . "\">" . $station . "</option>");
 			}
@@ -581,7 +580,7 @@ $num_fields_stations = mysql_num_fields($result_stations);
 		<input name="submit" type="submit" value="Select">
 		</form>
 			
-		<?	
+		<?php	
 			// form per l'inserimento
 			if($selected_station_id == "Add new station"){
 				echo("<br><br><b>Please insert information about the new station from " . $current_network_id . " network</b>");
@@ -695,7 +694,7 @@ $num_fields_stations = mysql_num_fields($result_stations);
 		?>	
 		<input name="submit" type="submit" value="Save">
 		</form>
-		<?
+		<?php
 		}
 		?>
 	<!-- end #station_form --></div>    
@@ -719,5 +718,5 @@ if($_GET["login_message"] != ''){
 </body>
 </html>
 <?php
-mysql_close($conn);
+mysqli_close($conn);
 ?>

@@ -55,6 +55,3 @@ if($_GET["download_message"] != ''){
 
 </body>
 </html>
-<?php
-mysql_close($conn);
-?>

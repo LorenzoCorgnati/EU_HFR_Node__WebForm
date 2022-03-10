@@ -7,20 +7,19 @@ $password = "!_e2MKonpy5paMTgR9_!";
 $dbname = "HFR_node_db";
 
 // Create connection to EU HFR node DB
-$conn = mysql_connect($servername, $username, $password);
+$conn = mysqli_connect($servername, $username, $password, $dbname);
 // Check connection
 if (!$conn) {
-    die("Connection failed: " . mysql_connect_error());
+    die("Connection failed: " . mysqli_connect_error());
 }
 
-mysql_select_db ($dbname, $conn);
-
-mysql_query("SET NAMES 'utf8'",$conn);
+// Set the desired charset after establishing a connection
+mysqli_set_charset($conn, 'utf8');
 
 // Query the database for retrieveing managed HFR network IDs
 $sql_networks_info = "SELECT network_id FROM account_tb WHERE username='" . $_GET["usr"] . "'";
-$result_networks_info = mysql_query($sql_networks_info, $conn) or die(mysql_error());
-$networks_info = mysql_fetch_assoc($result_networks_info);
+$result_networks_info = mysqli_query($conn, $sql_networks_info) or die(mysqli_error());
+$networks_info = mysqli_fetch_assoc($result_networks_info);
 $networks = $networks_info['network_id'];
 
 ?>
@@ -90,14 +89,14 @@ $networks = $networks_info['network_id'];
 				// chiamata alla funzione per l'aggiornamento dei dati in EU HFR node DB
 			    $sql_update = "UPDATE account_tb SET name=\"" .  $name . "\", surname=\"" . $surname . "\", institution=\"". $institution . "\", email=\"" . $email;		
 				$sql_update.= "\" WHERE username=\"" . $_GET["usr"] . "\"";
-				$update_query = mysql_query($sql_update, $conn) or die(mysql_error());
+				$update_query = mysqli_query($conn, $sql_update) or die(mysqli_error());
 				
 				// chiamata alla funzione per l'inserimento dei dati in CDM DB
 				if(isset($_POST['password'])){
 					if(!empty($_POST['password'])){
 						$sql_update_psw = "UPDATE login_tb SET password_login=\"" . $password;
 						$sql_update_psw.= "\" WHERE username_login=\"" . $_GET["usr"] . "\"";
-						$update_query_psw = mysql_query($sql_update_psw, $conn) or die(mysql_error());
+						$update_query_psw = mysqli_query($conn, $sql_update_psw) or die(mysqli_error());
 					}
 				}
 					
@@ -122,8 +121,8 @@ $networks = $networks_info['network_id'];
 			// form per l'inserimento	
 			// recupero eventuali informazioni inserite in precedenza dal EU HFR node DB
 			$sql_change_account = "SELECT * FROM account_tb WHERE username = '" . $_GET["usr"] . "'";				
-			$result_change_account = mysql_query($sql_change_account, $conn) or die(mysql_error());
-			$change_account = mysql_fetch_assoc($result_change_account);
+			$result_change_account = mysqli_query($conn, $sql_change_account) or die(mysqli_error());
+			$change_account = mysqli_fetch_assoc($result_change_account);
 			
 			$change_username = $change_account["username"];
 			$change_name = $change_account["name"];
@@ -131,7 +130,7 @@ $networks = $networks_info['network_id'];
 			$change_institution = $change_account["institution"];
 			$change_email = $change_account["email"];
 									
-			?>
+		?>
 			<form action="<?php echo $_SERVER['PHP_SELF'] . "?usr=" . $_GET["usr"]; ?>" method="post">
 			<?php echo("<br>Username: " . $change_username . "<br />"); ?>	
 			<br>Password:<br>			
@@ -149,9 +148,9 @@ $networks = $networks_info['network_id'];
 			<?php echo("<br>Network IDs: " . $networks . "<br />"); ?>
 			<input name="submit" type="submit" value="Save">
 			</form>
-			<?
+			<?php
 		}
-		?>
+			?>
 	<!-- end #registration_form --></div>    
   	<!-- end #mainContent --></div>
 	<!-- Questo elemento di clearing deve seguire immediatamente il div #mainContent al fine di forzare il div #container a contenere tutti i float di livello inferiore --><br class="clearfloat" />
@@ -173,5 +172,5 @@ if($_GET["login_message"] != ''){
 </body>
 </html>
 <?php
-mysql_close($conn);
+mysqli_close($conn);
 ?>

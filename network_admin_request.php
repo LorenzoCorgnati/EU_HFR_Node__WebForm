@@ -7,15 +7,14 @@ $password = "!_e2MKonpy5paMTgR9_!";
 $dbname = "HFR_node_db";
 
 // Create connection to EU HFR node DB
-$conn = mysql_connect($servername, $username, $password);
+$conn = mysqli_connect($servername, $username, $password, $dbname);
 // Check connection
 if (!$conn) {
-    die("Connection failed: " . mysql_connect_error());
+    die("Connection failed: " . mysqli_connect_error());
 }
 
-mysql_select_db ($dbname, $conn);
-
-mysql_query("SET NAMES 'utf8'",$conn);
+// Set the desired charset after establishing a connection
+mysqli_set_charset($conn, 'utf8');
 
 if($_POST["selected_network"] != ''){
 	$selected_network_id = $_POST["selected_network"];
@@ -63,7 +62,7 @@ if($_POST["selected_network"] != ''){
 		<?php
 		// Retrieve all the existing networksIDs
 		$sql_all_networks = "SELECT network_id FROM network_tb";
-		$result_all_networks = mysql_query($sql_all_networks, $conn) or die(mysql_error());
+		$result_all_networks = mysqli_query($conn, $sql_all_networks) or die(mysqli_error());
 		
 		// menu a tendina
 		?>
@@ -71,7 +70,7 @@ if($_POST["selected_network"] != ''){
 		<form action="<?php echo $_SERVER['PHP_SELF'] . "?usr=" . $_GET["usr"]; ?>" method="post">
 		<select name="selected_network">
 			<?php
-				while ($row=mysql_fetch_array($result_all_networks)){
+				while ($row=mysqli_fetch_array($result_all_networks)){
 					$network=$row['network_id'];
 					echo("<option value=\"" . $network . "\">" . $network . "</option>");
 				}
@@ -101,5 +100,5 @@ if($_GET["login_message"] != ''){
 </body>
 </html>
 <?php
-mysql_close($conn);
+mysqli_close($conn);
 ?>

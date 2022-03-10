@@ -7,21 +7,20 @@ $password = "!_e2MKonpy5paMTgR9_!";
 $dbname = "HFR_node_db";
 
 // Create connection to EU HFR node DB
-$conn = mysql_connect($servername, $username, $password);
+$conn = mysqli_connect($servername, $username, $password, $dbname);
 // Check connection
 if (!$conn) {
-    die("Connection failed: " . mysql_connect_error());
+    die("Connection failed: " . mysqli_connect_error());
 }
 
-mysql_select_db ($dbname, $conn);
-
-mysql_query("SET NAMES 'utf8'",$conn);
+// Set the desired charset after establishing a connection
+mysqli_set_charset($conn, 'utf8');
 
 if($_GET["ntw"] != ''){
 	$selected_network_id = $_GET["ntw"];
 	$sql_selected_network = "SELECT * FROM network_tb WHERE network_id='" . $selected_network_id . "'";
-	$result_selected_network = mysql_query($sql_selected_network, $conn) or die(mysql_error());
-	$selected_network = mysql_fetch_assoc($result_selected_network);
+	$result_selected_network = mysqli_query($conn, $sql_selected_network) or die(mysqli_error());
+	$selected_network = mysqli_fetch_assoc($result_selected_network);
 	$EU_HFR_processing_flag = $selected_network['EU_HFR_processing_flag'];
 }
 
@@ -36,22 +35,22 @@ if($_POST["selected_network"] != ''){
 	}
 	else{
 		$sql_selected_network = "SELECT * FROM network_tb WHERE network_id='" . $selected_network_id . "'";
-		$result_selected_network = mysql_query($sql_selected_network, $conn) or die(mysql_error());
-		$selected_network = mysql_fetch_assoc($result_selected_network);
+		$result_selected_network = mysqli_query($conn, $sql_selected_network) or die(mysqli_error());
+		$selected_network = mysqli_fetch_assoc($result_selected_network);
 	}
 }
 
 // Query EU HFR node DB for retrieving the networks associated to the current username
 $sql_username_info = "SELECT * FROM account_tb WHERE username='" . $_GET["usr"] . "'";
-$result_username_info = mysql_query($sql_username_info, $conn) or die(mysql_error());
-$username_info = mysql_fetch_assoc($result_username_info);
+$result_username_info = mysqli_query($conn, $sql_username_info) or die(mysqli_error());
+$username_info = mysqli_fetch_assoc($result_username_info);
 $networks = $username_info['network_id'];
 
 if($networks == "*"){
 	$sql_all_networks = "SELECT network_id FROM network_tb";
-	$result_all_networks = mysql_query($sql_all_networks, $conn) or die(mysql_error());	
+	$result_all_networks = mysqli_query($conn, $sql_all_networks) or die(mysqli_error());	
 	$j = 0;
-	while ($all_networks_row=mysql_fetch_array($result_all_networks)){
+	while ($all_networks_row=mysqli_fetch_array($result_all_networks)){
 		$network_array[$j]=$all_networks_row['network_id'];
 		$j++;
 	}
@@ -585,7 +584,7 @@ function getfolder(e) {
 																								$combination_search_radius = 2*$grid_resolution;
 																							}
 																							// check if the selected id is already present in the DB
-																						    if(mysql_num_rows($result_selected_network) > 0){
+																						    if(mysqli_num_rows($result_selected_network) > 0){
 																						   		// chiamata alla funzione per l'aggiornamento dei dati
 																							    $sql_update = "UPDATE network_tb SET EDIOS_Series_id=\"" . $EDIOS_Series_id . "\", EDMO_code=\"" . $EDMO_code . "\", metadata_page=\"" . $metadata_page;
 																								$sql_update.= "\", title=\"" . $title . "\", summary=\"" . $summary . "\", institution_name=\"". $institution_name . "\", citation_statement=\"" . $citation_statement;
@@ -601,24 +600,24 @@ function getfolder(e) {
 																									$sql_update.= "\", total_input_folder_path=\"" . $total_input_folder_path . "\", total_HFRnetCDF_folder_path=\"" . $total_HFRnetCDF_folder_path . "\", total_mat_folder_path=\"" . $total_mat_folder_path;
 																								}		
 																								$sql_update.= "\" WHERE network_id=\"" . $selected_network_id . "\"";
-																								$update_query = mysql_query($sql_update, $conn) or die(mysql_error());
+																								$update_query = mysqli_query($conn, $sql_update) or die(mysqli_error());
 																											
 																								// set void dates to NULL value
 																								if(($operational_from == '0000-00-00') || ($operational_from == '')){
 																									$sql_null_update = "UPDATE network_tb SET operational_from=NULL WHERE network_id=\"" . $selected_network_id . "\"";
-																									$null_update_query = mysql_query($sql_null_update, $conn) or die(mysql_error());
+																									$null_update_query = mysqli_query($conn, $sql_null_update) or die(mysqli_error());
 																								}
 																								else{
 																									$sql_opf_update = "UPDATE network_tb SET operational_from=\"" . $operational_from . "\" WHERE network_id=\"" . $selected_network_id . "\"";
-																									$opf_update_query = mysql_query($sql_opf_update, $conn) or die(mysql_error());
+																									$opf_update_query = mysqli_query($conn, $sql_opf_update) or die(mysqli_error());
 																								}
 																								if(($operational_to == '0000-00-00') || ($operational_to == '')){
 																									$sql_null_update = "UPDATE network_tb SET operational_to=NULL WHERE network_id=\"" . $selected_network_id . "\"";
-																									$null_update_query = mysql_query($sql_null_update, $conn) or die(mysql_error());
+																									$null_update_query = mysqli_query($conn, $sql_null_update) or die(mysqli_error());
 																								}
 																								else{
 																									$sql_opt_update = "UPDATE network_tb SET operational_to=\"" . $operational_to . "\" WHERE network_id=\"" . $selected_network_id . "\"";
-																									$opt_update_query = mysql_query($sql_opt_update, $conn) or die(mysql_error());
+																									$opt_update_query = mysqli_query($conn, $sql_opt_update) or die(mysqli_error());
 																								}					
 																							
 																								$mess = "The network information have been updated successfully.";
@@ -728,7 +727,7 @@ function getfolder(e) {
 		else
 		{
 			// menu a tendina
-			?>
+		?>
 			<b>Select the network:</b>
 			<form action="<?php echo $_SERVER['PHP_SELF'] . "?usr=" . $_GET["usr"]; ?>" method="post">
 			<select name="selected_network">
@@ -751,7 +750,7 @@ function getfolder(e) {
 			<input name="submit" type="submit" value="Select">
 			</form>
 			
-			<?	
+			<?php	
 			// form per l'inserimento
 			echo("<br><br><b>Please insert information about the " . $selected_network_id . " network (* = mandatory fields)</b>");
 			
@@ -886,7 +885,7 @@ function getfolder(e) {
 			?>	
 			<input name="submit" type="submit" value="Save">
 			</form>
-			<?
+			<?php
 		}
 		?>
 	<!-- end #network_form --></div>    
@@ -910,5 +909,5 @@ if($_GET["login_message"] != ''){
 </body>
 </html>
 <?php
-mysql_close($conn);
+mysqli_close($conn);
 ?>

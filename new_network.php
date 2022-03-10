@@ -7,15 +7,14 @@ $password_HFR = "!_e2MKonpy5paMTgR9_!";
 $dbname_HFR = "HFR_node_db";
 
 // Create connection to EU HFR node DB
-$conn_HFR = mysql_connect($servername_HFR, $username_HFR, $password_HFR);
+$conn_HFR = mysqli_connect($servername_HFR, $username_HFR, $password_HFR, $dbname_HFR);
 // Check connection
 if (!$conn_HFR) {
-    die("Connection failed: " . mysql_connect_error());
+    die("Connection failed: " . mysqli_connect_error());
 }
 
-mysql_select_db ($dbname_HFR, $conn_HFR);
-
-mysql_query("SET NAMES 'utf8'",$conn_HFR);
+// Set the desired charset after establishing a connection
+mysqli_set_charset($conn_HFR, 'utf8');
 
 if($_GET["usr"] != ''){
 	$username = $_GET["usr"];
@@ -62,8 +61,8 @@ if($_GET["usr"] != ''){
 		  	if($network_id!=''){
 		  		// Check if the network ID already exists
 				$sql_networks = "SELECT * FROM network_tb WHERE network_id='$network_id'";
-				$result_networks = mysql_query($sql_networks, $conn_HFR) or die(mysql_error());
-				$count_networks = mysql_num_rows($result_networks);  
+				$result_networks = mysqli_query($conn_HFR, $sql_networks) or die(mysqli_error());
+				$count_networks = mysqli_num_rows($result_networks);  
 				
 				if ($count_networks>0){
 						$mess = "The network ID you inserted already exists. Please choose a different one. Network IDs MUST be equal to the EDIOS Series ID of the HFR network";
@@ -80,8 +79,8 @@ if($_GET["usr"] != ''){
 					else{
 						// Retrieve information about the username
 						$sql_username_info = "SELECT * FROM account_tb WHERE username='$username'";
-						$result_username_info = mysql_query($sql_username_info, $conn_HFR) or die(mysql_error());
-						$username_info = mysql_fetch_assoc($result_username_info);
+						$result_username_info = mysqli_query($conn_HFR, $sql_username_info) or die(mysqli_error());
+						$username_info = mysqli_fetch_assoc($result_username_info);
 						
 						$name = $username_info["name"];
 						$surname = $username_info["surname"];
@@ -97,11 +96,11 @@ if($_GET["usr"] != ''){
 						
 						// chiamata alla funzione per l'aggiornamento dei dati del profilo
 						$sql_update = "UPDATE account_tb SET network_id=\"" . $updated_network_id . "\" WHERE username=\"" . $username . "\"";
-						$update_query = mysql_query($sql_update, $conn_HFR) or die(mysql_error());
+						$update_query = mysqli_query($conn_HFR, $sql_update) or die(mysqli_error());
 						
 						// Insert new network into network_tb table
 						$sql_insert = "INSERT INTO network_tb (network_id) VALUES (\"" . $network_id . "\")";
-						$insert_query = mysql_query($sql_insert, $conn_HFR) or die(mysql_error());
+						$insert_query = mysqli_query($conn_HFR, $sql_insert) or die(mysqli_error());
 						
 						$mess =  "The new network has been added to the networks you manage. An email with the details of your updated profile has been sent to you.";
 													
@@ -159,5 +158,5 @@ if($_GET["login_message"] != ''){
 </body>
 </html>
 <?php
-mysql_close($conn_HFR);
+mysqli_close($conn_HFR);
 ?>

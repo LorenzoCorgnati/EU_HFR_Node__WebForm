@@ -7,15 +7,14 @@ $password = "!_e2MKonpy5paMTgR9_!";
 $dbname = "HFR_node_db";
 
 // Create connection
-$conn = mysql_connect($servername, $username, $password);
+$conn = mysqli_connect($servername, $username, $password, $dbname);
 // Check connection
 if (!$conn) {
-    die("Connection failed: " . mysql_connect_error());
+    die("Connection failed: " . mysqli_connect_error());
 }
 
-mysql_select_db ($dbname);
-
-mysql_query("SET NAMES 'utf8'");
+// Set the desired charset after establishing a connection
+mysqli_set_charset($conn, 'utf8');
 
 if($_GET["usr"] != ''){
 	$username = $_GET["usr"];
@@ -54,7 +53,7 @@ if($_GET["usr"] != ''){
 	    header('Location: index.php');
 	    exit;
     }
- ?>
+	?>
     <div id="login">
     	<p><b>Welcome to the EU HFR NODE Data Entry Web Form</p>
 	  	<div id="form_login">
@@ -91,8 +90,8 @@ if($_GET["usr"] != ''){
 				
 				// esecuzione della query con le credenziali di accesso
 				$sql_login = "SELECT id_login FROM login_tb WHERE username_login='" . $username . "' AND password_login='" . $password . "'";
-				$result_login = mysql_query($sql_login, $conn) or die(mysql_error());
-				$num_rows_login = mysql_num_rows($result_login);
+				$result_login = mysqli_query($conn, $sql_login) or die(mysqli_error());
+				$num_rows_login = mysqli_num_rows($result_login);
 				
     			// controllo sul risultato dell'interrogazione
         		if($num_rows_login==0)
@@ -104,7 +103,7 @@ if($_GET["usr"] != ''){
     			else
     			{
           			// chiamata alla funzione per l'estrazione dei dati
-      				$inserted_login = mysql_fetch_object($result_login);
+      				$inserted_login = mysqli_fetch_object($result_login);
       				
           			// creazione del valore di sessione
       				$_SESSION['login'] = $inserted_login;
@@ -117,7 +116,7 @@ if($_GET["usr"] != ''){
 		else
 		{
   			// form per l'autenticazione
-  			?>
+  		?>
 			<form action="<?php echo $_SERVER['PHP_SELF']?>" method="POST">
 			Username:<br />
 			<input type="text" name="username"><br />
@@ -125,9 +124,9 @@ if($_GET["usr"] != ''){
 			<input type="password" name="password" size="20"><br />
 			<input name="submit" type="submit" value="Login">
 			</form>
-  			<?
+  			<?php
 		}
-		?>
+			?>
 		<br> <a href="registration.php">or click here for creating your account</a>
 		<br><br> <a href="psw_recovery.php">Click here to recover your password in case you lost it</a>
     </div>
@@ -151,5 +150,5 @@ if($_GET["login_message"] != ''){
 </body>
 </html>
 <?php
-mysql_close($conn);
+mysqli_close($conn);
 ?>
