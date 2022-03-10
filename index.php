@@ -41,6 +41,9 @@ if($_GET["usr"] != ''){
   
   <div id="mainContent">
     <!-- <h1> Contenuto principale</h1> -->
+    <div id="Buttons">
+    	<a href="https://cnrsc-my.sharepoint.com/:b:/g/personal/lorenzo_corgnati_cnr_it/Ecoa9zTYUmVNiXuDxiKWslQBqwbtuG3r1RVwdI5Dy-E9zg?e=qclGcb" target="_blank"><button style="height:40px; width:200px">Webform User Manual</button><a>
+    </div>
     <div id="splash">
     	<img src="/images/EU_HFR_Node_VF.png">
     <!-- end #splash --></div>

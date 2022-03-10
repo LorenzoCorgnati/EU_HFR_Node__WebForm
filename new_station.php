@@ -46,6 +46,8 @@ if($_GET["ntw"] != ''){
   <div id="mainContent">
     <?php echo("<h1>Add a new HFR station from " . $current_network_id . " network</h1>"); ?>
     <div id="Buttons">
+    	<a href="https://cnrsc-my.sharepoint.com/:b:/g/personal/lorenzo_corgnati_cnr_it/Ecoa9zTYUmVNiXuDxiKWslQBqwbtuG3r1RVwdI5Dy-E9zg?e=qclGcb" target="_blank"><button style="height:40px; width:200px">Webform User Manual</button><a>
+    		<br><br>
     	<a href="index.php?logout=true"><button style="height:40px; width:200px">Logout</button><a>
     		<br><br>
     	<?php echo("<a href=\"edit_account.php?usr=" . $_GET['usr'] . "\"><button style=\"height:40px; width:200px\">Edit your profile</button><a>"); ?>
