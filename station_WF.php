@@ -69,7 +69,7 @@ $num_fields_stations = mysqli_num_fields($result_stations);
 <body class="twoColFixRtHdr">
 
 <div id="container">
-  <div id="header" style="background: url('images/header_prova2.png')">
+  <div id="header" style="background: url('images/header_2022.png')">
     <h1>EU HFR NODE - Data Entry Web Form</h1><br>
     Web Form for managing HFR network information
   <!-- end #header --></div>

@@ -44,7 +44,8 @@ body  {
 
 .twoColFixRtHdr #footer { 
 	padding: 0 10px 0 20px; /* questo padding corrisponde all'allineamento a sinistra degli elementi nei div sovrastanti. */
-	background:#DDDDDD; 
+	background:#272D65; 
+	color: white;
 	font-size: smaller;
 	text-align:center;
 } 
