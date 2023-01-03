@@ -43,7 +43,7 @@ if($_GET["usr"] != ''){
   <div id="mainContent">
     <h1>Add a new HFR network</h1>
     <div id="Buttons">
-    	<a href="https://cnrsc-my.sharepoint.com/:b:/g/personal/lorenzo_corgnati_cnr_it/Ecoa9zTYUmVNiXuDxiKWslQBqwbtuG3r1RVwdI5Dy-E9zg?e=qclGcb" target="_blank"><button style="height:40px; width:200px">Webform User Manual</button><a>
+    	<a href="https://cnrsc-my.sharepoint.com/:b:/g/personal/lorenzopaolo_corgnati_cnr_it/Ecoa9zTYUmVNiXuDxiKWslQBqwbtuG3r1RVwdI5Dy-E9zg?e=bylH89" target="_blank"><button style="height:40px; width:200px">Webform User Manual</button><a>
     		<br><br>
     	<a href="index.php?logout=true"><button style="height:40px; width:200px">Logout</button><a>
     		<br><br>

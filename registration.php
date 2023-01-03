@@ -39,7 +39,7 @@ mysqli_set_charset($conn_HFR, 'utf8');
   <div id="mainContent">
     <h1>Registration form</h1>
     <div id="Buttons">
-    	<a href="https://cnrsc-my.sharepoint.com/:b:/g/personal/lorenzo_corgnati_cnr_it/Ecoa9zTYUmVNiXuDxiKWslQBqwbtuG3r1RVwdI5Dy-E9zg?e=qclGcb" target="_blank"><button style="height:40px; width:200px">Webform User Manual</button><a>
+    	<a href="https://cnrsc-my.sharepoint.com/:b:/g/personal/lorenzopaolo_corgnati_cnr_it/Ecoa9zTYUmVNiXuDxiKWslQBqwbtuG3r1RVwdI5Dy-E9zg?e=bylH89" target="_blank"><button style="height:40px; width:200px">Webform User Manual</button><a>
     		<br><br>
     	<a href="index.php"><button style="height:40px; width:200px">Back to homepage</button><a>
     		<br><br>
