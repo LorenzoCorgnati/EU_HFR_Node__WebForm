@@ -808,16 +808,16 @@ function getfolder(e) {
 			<input name="operational_from" type="text" size="80" value="<?php echo($previous_operational_from);?>"><br />
 			<br>Operational to (YYYY-MM-DD):<br>			
 			<input name="operational_to" type="text" size="80" value="<?php echo($previous_operational_to);?>"><br />	
-			<br><b>EDIOS Series ID</b>:<br>			
+			<br><b>EDIOS Series ID*</b>:<br>			
 			<input name="EDIOS_Series_id" type="text" size="80" value="<?php echo($previous_EDIOS_Series_id);?>"><br />	
-			<br><b>EDMO code of the institution responsible for the HFR network management and total files generation</b>:<br>
-			(To be filled only in case of an institution responsible for the HFR network management that is not managing any radial station)<br>
+			<br><b>EDMO code of the institution responsible for the HFR network management and total files generation*</b>:<br>
+			(To be filled with the institution responsible for the overall HFR network management)<br>
 			<input name="EDMO_code" type="number" size="80" value="<?php echo($previous_EDMO_code);?>"><br />
-			<br><b>Institution responsible for the HFR network management and total files generation</b>:<br>
-			(To be filled only in case of an institution responsible for the HFR network management that is not managing any radial station)<br>			
+			<br><b>Institution responsible for the HFR network management and total files generation*</b>:<br>
+			(To be filled with the institution responsible for the overall HFR network management)<br>			
 			<input name="institution_name" type="text" size="80" value="<?php echo($previous_institution_name);?>"><br />	
-			<br><b>Website of the institution responsible for the HFR network management and total files generation</b>:<br>
-			(To be filled only in case of an institution responsible for the HFR network management that is not managing any radial station)<br>			
+			<br><b>Website of the institution responsible for the HFR network management and total files generation*</b>:<br>
+			(To be filled with the institution responsible for the overall HFR network management)<br>			
 			<input name="institution_website" type="text" size="80" value="<?php echo($previous_institution_website);?>"><br />
 			<br><b>Contributor names*</b>:<br>
 			(Insert a semi-colon separated list of names)<br>

@@ -159,6 +159,14 @@ $num_fields_stations = mysqli_num_fields($result_stations);
 		{
 			$_SESSION['transmit_central_frequency'] = $_GET['tcf'];
 		}
+		if($_GET['ntx'] != '')
+		{
+			$_SESSION['number_of_transmit_antennas'] = $_GET['ntx'];
+		}
+		if($_GET['nrx'] != '')
+		{
+			$_SESSION['number_of_receive_antennas'] = $_GET['nrx'];
+		}
 		if($_GET['trs'] != '')
 		{
 			$_SESSION['temporal_resolution'] = $_GET['trs'];
@@ -276,6 +284,14 @@ $num_fields_stations = mysqli_num_fields($result_stations);
 			{
 				$_SESSION['transmit_central_frequency'] = addslashes(filter_var($_POST['transmit_central_frequency'], FILTER_SANITIZE_STRING));
 			}
+			if(isset($_POST['number_of_transmit_antennas']))
+			{
+				$_SESSION['number_of_transmit_antennas'] = addslashes(filter_var($_POST['number_of_transmit_antennas'], FILTER_SANITIZE_STRING));
+			}
+			if(isset($_POST['number_of_receive_antennas']))
+			{
+				$_SESSION['number_of_receive_antennas'] = addslashes(filter_var($_POST['number_of_receive_antennas'], FILTER_SANITIZE_STRING));
+			}
 			if(isset($_POST['temporal_resolution']))
 			{
 				$_SESSION['temporal_resolution'] = addslashes(filter_var($_POST['temporal_resolution'], FILTER_SANITIZE_STRING));
@@ -334,6 +350,7 @@ $num_fields_stations = mysqli_num_fields($result_stations);
 												 . "&opt=" . $_SESSION['operational_to'] . "&EDM=" . $_SESSION['EDMO_code'] . "&sum=" . $_SESSION['summary'] . "&Dem=" . $_SESSION['DoA_estimation_method']
 												 . "&clt=" . $_SESSION['calibration_type']  . "&cll=" . $_SESSION['calibration_link'] . "&lcd=" . $_SESSION['last_calibration_date'] . "&inn=" . $_SESSION['institution_name']
 												 . "&inw=" . $_SESSION['institution_website'] . "&mnf=" . $_SESSION['manufacturer'] . "&tcf=" . $_SESSION['transmit_central_frequency']
+												 . "&ntx=" . $_SESSION['number_of_transmit_antennas']. "&nrx=" . $_SESSION['number_of_receive_antennas']
 												 . "&trs=" . $_SESSION['temporal_resolution'] . "&vel=" . $_SESSION['radial_QC_velocity_threshold'] . "&var=" . $_SESSION['radial_QC_variance_threshold']
 												 . "&tdr=" . $_SESSION['radial_QC_temporal_derivative_threshold'] . "&mfR=" . $_SESSION['radial_QC_median_filterRCLim'] . "&mfA=" . $_SESSION['radial_QC_median_filterAngLim']
 												 . "&mfC=" . $_SESSION['radial_QC_median_filterCurLim'] . "&rbn=" . $_SESSION['radial_QC_average_radial_bearing_min']
@@ -415,6 +432,14 @@ $num_fields_stations = mysqli_num_fields($result_stations);
 										{
 									  	$transmit_central_frequency = addslashes(filter_var($_POST['transmit_central_frequency'], FILTER_SANITIZE_STRING));
 										}	
+										if(isset($_POST['number_of_transmit_antennas']))
+										{
+											$number_of_transmit_antennas = addslashes(filter_var($_POST['number_of_transmit_antennas'], FILTER_SANITIZE_STRING));
+										}
+										if(isset($_POST['number_of_receive_antennas']))
+										{
+											$number_of_receive_antennas = addslashes(filter_var($_POST['number_of_receive_antennas'], FILTER_SANITIZE_STRING));
+										}
 										if(isset($_POST['temporal_resolution']))
 										{
 											$temporal_resolution = addslashes(filter_var($_POST['temporal_resolution'], FILTER_SANITIZE_STRING));
@@ -475,7 +500,8 @@ $num_fields_stations = mysqli_num_fields($result_stations);
 												$sql_update.= "\", site_lat=\"" . $site_lat;
 												$sql_update.= "\", manufacturer=\"" . $manufacturer . "\", EDMO_code=\"" . $EDMO_code . "\", summary=\"" . $summary . "\", DoA_estimation_method=\"" . $DoA_estimation_method;
 												$sql_update.= "\", calibration_type=\"" . $calibration_type . "\", calibration_link=\"" . $calibration_link . "\", institution_website=\"" . $institution_website;
-												$sql_update.= "\", institution_name=\"". $institution_name . "\", transmit_central_frequency=\"" . $transmit_central_frequency . "\", temporal_resolution=\"" . $temporal_resolution;
+												$sql_update.= "\", institution_name=\"" . $institution_name . "\", transmit_central_frequency=\"" . $transmit_central_frequency . "\", temporal_resolution=\"" . $temporal_resolution;
+												$sql_update.= "\", number_of_transmit_antennas=\"" . $number_of_transmit_antennas . "\", number_of_receive_antennas=\"" . $number_of_receive_antennas;
 												$sql_update.= "\", radial_QC_velocity_threshold=\"" . $radial_QC_velocity_threshold . "\", radial_QC_variance_threshold=\"" . $radial_QC_variance_threshold;
 												$sql_update.= "\", radial_QC_temporal_derivative_threshold=\"" . $radial_QC_temporal_derivative_threshold . "\", radial_QC_median_filter_RCLim=\"" . $radial_QC_median_filter_RCLim;
 												$sql_update.= "\", radial_QC_median_filter_AngLim=\"" . $radial_QC_median_filter_AngLim . "\", radial_QC_median_filter_CurLim=\"" . $radial_QC_median_filter_CurLim;
@@ -615,6 +641,8 @@ $num_fields_stations = mysqli_num_fields($result_stations);
 			$previous_institution_website = $previous["institution_website"];
 			$previous_manufacturer = $previous["manufacturer"];	
 			$previous_transmit_central_frequency = $previous["transmit_central_frequency"];		
+			$previous_number_of_transmit_antennas = $previous["number_of_transmit_antennas"];	
+			$previous_number_of_receive_antennas = $previous["number_of_receive_antennas"];
 			$previous_temporal_resolution = $previous["temporal_resolution"];		
 			$previous_radial_QC_velocity_threshold = $previous["radial_QC_velocity_threshold"];
 			$previous_radial_QC_variance_threshold = $previous["radial_QC_variance_threshold"];
@@ -663,7 +691,11 @@ $num_fields_stations = mysqli_num_fields($result_stations);
 		<br>Last calibration date (YYYY-MM-DD):<br>			
 		<input name="last_calibration_date" type="text" size="80" value="<?php echo($previous_last_calibration_date);?>"><br />	
 		<br>Transmit central frequency (MHz):<br>
-		<input name="transmit_central_frequency" type="number" size="80" step="0.00001" min="0" max="100" value="<?php echo($previous_transmit_central_frequency);?>"><br />	
+		<input name="transmit_central_frequency" type="number" size="80" step="0.00001" min="0" max="100" value="<?php echo($previous_transmit_central_frequency);?>"><br />
+		<br>Number of transmit antennas:<br>
+		<input name="number_of_transmit_antennas" type="number" size="80" step="1" min="0" max="100" value="<?php echo($previous_number_of_transmit_antennas);?>"><br />	
+		<br>Number of receive antennas:<br>
+		<input name="number_of_receive_antennas" type="number" size="80" step="1" min="0" max="100" value="<?php echo($previous_number_of_receive_antennas);?>"><br />	
 		<br><b>Temporal resolution (decimal minutes, e.g. 37'30"= 37.5 minutes)*</b>:<br>
 		<input name="temporal_resolution" type="number" size="80" step="0.01" min="0" max="100" value="<?php echo($previous_temporal_resolution);?>"><br />
 		<br>Radial QC velocity threshold (m/s):<br>
